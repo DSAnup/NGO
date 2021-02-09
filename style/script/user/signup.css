@@ -1,0 +1,15 @@
+html > body > .LeftPanel{display: none;}
+html > body > header{display: none;}
+html > body > main{margin-left: 0; background-color: Transparent;}
+html > body > footer{display: none;}
+html > body > .Anchor_PageLocationTop{display: none;}
+
+.ApplicationTitle{margin-top: 75px; color: White; font-size: 200%; font-weight: bold; text-align: center; text-shadow: -1px -1px Black, 1px -1px Black, 1px 1px Black, -1px 1px Black;}
+
+#frmUserSignUp{margin-top: 15px; box-shadow: 0 0 15px 0 Black; border-radius: 5px; background-color: rgba(255, 255, 255, 0.75); padding: 45px; transition: all 1000ms;}
+#frmUserSignUp:hover{background-color: White;}
+#frmUserSignUp > .Content > .Field > .Body > .Caption{margin-top: 7px;}
+#frmUserSignUp input{border-radius: 5px; border: 2px #0089ff solid; background-color: rgba(255, 255, 255, 0.75);}
+#frmUserSignUp button{border-radius: 5px; border: 2px #0089ff solid; font-weight: bold; text-transform: uppercase;}
+
+.DeveloperTitle{margin-top: 15px; color: White; font-size: 100%; font-weight: bold; text-align: center; text-shadow: -1px -1px Black, 1px -1px Black, 1px 1px Black, -1px 1px Black;}

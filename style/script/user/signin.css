@@ -1,0 +1,37 @@
+html > body{height: 100%; background-image: url('../../../image/layout/bodybackground.jpg'); color: White; text-align: center;}
+html > body:before{display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #FB404B 0%, rgba(187, 5, 2, 0.6) 100%); content: '';}
+html > body > .LeftPanel{display: none;}
+html > body > header{display: none;}
+html > body > main{margin: 0; height: 100%; border-width: 0; background-color: transparent; padding: 0;}
+html > body > main > .Content{height: 100%; border-width: 0; background-color: transparent; padding: 0;}
+html > body > footer{display: none;}
+html > body > .Anchor_PageLocationTop{display: none;}
+
+#frmUserSignIn{margin-top: 53px; width: 315px; box-shadow: 0 25px 30px -13px rgba(40, 40, 40, 0.4); border-radius: 10px; background-color: White; padding: 15px; text-align: center; z-index: 1;}
+#frmUserSignIn:hover{box-shadow: 0 0 5px 0 Black;}
+#frmUserSignIn > .Content > .Logo{margin-bottom: 10px;}
+#frmUserSignIn > .Content > .Logo > img{height: 132px;}
+#frmUserSignIn > .Content > input{display: block; margin-top: 5px; width: 100% !important; border-radius: 3px; border-color: Silver; padding-top: 10px; padding-bottom: 10px; color: Black; text-align: center;}
+#frmUserSignIn > .Content > button{margin-top: 15px; width: 180px !important; border-radius: 5px; border-width: 0; background-color: #FB404B; padding-top: 10px; padding-bottom: 10px; font-weight: bold; text-transform: uppercase;}
+#frmUserSignIn > .Content > button:hover{background-color: Red; color: White;}
+#frmUserSignIn > .Content > .BottomLink{margin-top: 20px;}
+#frmUserSignIn > .Content > .BottomLink > a{color: #23CCEF;}
+#frmUserSignIn > .Content > .BottomLink > a:not(:first-child){margin-left: 15px;}
+#frmUserSignIn > .Content > .BottomLink > a:hover{text-decoration: none;}
+
+.Support{margin-top: 5px;}
+.Support > .Prefix{text-transform: uppercase;}
+.Support > .Button{color: White; font-size: 150%; font-weight: bold; letter-spacing: 1.5px; text-align: center;}
+
+.Support > .Button > .Caption{position: absolute; left: 0; top: 28.5px; width: 100%;}
+.Support > .Suffix{}
+
+.Developer{position: absolute; left: 0; bottom: 8px; width: 100%;}
+.Developer > .Prefix{margin-bottom: 5px;}
+.Developer > .Logo > img{height: 32px; border-radius: 5px; background-color: White; padding: 5px;}
+
+@media screen and (max-width: 11cm){ /* Phone */
+	.Support > .Button > .Background{width: 320px;}
+	.Support > .Button > .Caption{top: 24px;}
+	#frmUserSignIn{margin-top: 15px; width: 82%;}
+}

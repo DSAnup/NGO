@@ -1,0 +1,14 @@
+{
+  "background_color": "Red",
+  "description": "Robi Vehicle Tracker",
+  "display": "standalone",
+  "icons": [
+    {"src": "./image/logo.png", "type": "image/png", "sizes": "72x72 96x96 128x128 256x256 512x512"}
+  ],
+  "lang": "en-US", 
+  "name": "Robi Vehicle Tracker",
+  "scope": "/",
+  "short_name": "Robi Tracker",
+  "start_url": "http://RVT.BondStein.Com/index.php",
+  "theme_color": "Maroon"
+}

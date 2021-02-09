@@ -1,0 +1,254 @@
+
+			
+		<div class="Welcome">
+            <div class="Title">Welcome System Administrator!</div>
+            <div class="Title">Total 6 Tasks</div>
+		</div>
+
+        <div class="ContainerRow">
+            <div class="Container Container_6Column">
+                <div class="Subtitle">Source</div>
+                <div class="Content Content_Height247"><canvas id="SourceChart" class="Chart"></canvas></div>
+            </div>
+
+			<div class="Container Container_6Column">
+                <div class="Subtitle">Type</div>
+                <div class="Content Content_Height247"><canvas id="TypeChart" class="Chart"></canvas></div>
+            </div>
+            
+			<div class="Container Container_6Column">
+                <div class="Subtitle">Priority</div>
+                <div class="Content Content_Height247"><canvas id="PriorityChart" class="Chart"></canvas></div>
+            </div>
+            
+			<div class="Container Container_6Column">
+                <div class="Subtitle">Status</div>
+                <div class="Content Content_Height247"><canvas id="StatusChart" class="Chart"></canvas></div>
+            </div>
+            
+			<div class="Container Container_6Column">
+                <div class="Subtitle">Acknowledge</div>
+                <div class="Content Content_Height247"><canvas id="AcknowledgeChart" class="Chart"></canvas></div>
+			</div>
+            
+			<div class="Container Container_6Column">
+                <div class="Subtitle">Project</div>
+                <div class="Content Content_Height247"><canvas id="ProjectChart" class="Chart"></canvas></div>
+            </div>
+            
+        </div>
+        <script>
+        
+				var SourceChart = new Chart(document.getElementById('SourceChart').getContext('2d'), {
+					type: 'pie', // bar, horizontalBar, line, doughnut, pie
+					data: {
+						labels: ['Others', 'Piority Que', 'Tech'],
+						datasets: [
+							{
+								backgroundColor: ['#00b8e6', '#00b300', '#d6d6c2'],
+								data: [1, 3, 2],
+								borderWidth: 0.5,
+								hoverBackgroundColor: '#ff99dd',
+							},
+						]
+					},
+					options: {
+						maintainAspectRatio: false, // true, false
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+							},
+						},
+						plugins: {
+							datalabels: {
+								color: 'White',
+								anchor: 'center',
+								align: 'center',
+								font: {
+									weight: 'bold',
+								},
+							},
+						},
+					},
+				});
+            
+            
+				var TypeChart = new Chart(document.getElementById('TypeChart').getContext('2d'), {
+					type: 'pie', // bar, horizontalBar, line, doughnut, pie
+					data: {
+						labels: ['Enhancement', 'Feature', 'Modification'],
+						datasets: [
+							{
+								backgroundColor: ['#87CB16', '#ff9800', '#f44336'],
+								data: [1, 4, 1],
+								borderWidth: 0.5,
+								hoverBackgroundColor: 'Cyan',
+							},
+						]
+					},
+					options: {
+						maintainAspectRatio: false, // true, false
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+							},
+						},
+						plugins: {
+							datalabels: {
+								color: 'White',
+								anchor: 'center',
+								align: 'center',
+								font: {
+									weight: 'bold',
+								},
+							},
+						},
+					},
+				});
+            
+            
+				var PriorityChart = new Chart(document.getElementById('PriorityChart').getContext('2d'), {
+					type: 'pie', // bar, horizontalBar, line, doughnut, pie
+					data: {
+						labels: ['High', 'Medium', 'Others'],
+						datasets: [
+							{
+								backgroundColor: ['#990000', '#f44336', '#d6d6c2'],
+								data: [2, 2, 2],
+								borderWidth: 0.5,
+								hoverBackgroundColor: 'Cyan',
+							},
+						]
+					},
+					options: {
+						maintainAspectRatio: false, // true, false
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+							},
+						},
+						plugins: {
+							datalabels: {
+								color: 'White',
+								anchor: 'center',
+								align: 'center',
+								font: {
+									weight: 'bold',
+								},
+							},
+						},
+					},
+				});
+            
+            
+				var StatusChart = new Chart(document.getElementById('StatusChart').getContext('2d'), {
+					type: 'pie', // bar, horizontalBar, line, doughnut, pie
+					data: {
+						labels: ['BETA', 'Others', 'Pending', 'Released'],
+						datasets: [
+							{
+								backgroundColor: ['#ff3300', '#d6d6c2', '#990000', '#00b300'],
+								data: [1, 2, 2, 1],
+								borderWidth: 0.5,
+								hoverBackgroundColor: 'Cyan',
+							},
+						]
+					},
+					options: {
+						maintainAspectRatio: false, // true, false
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+							},
+						},
+						plugins: {
+							datalabels: {
+								color: 'White',
+								anchor: 'center',
+								align: 'center',
+								font: {
+									weight: 'bold',
+								},
+							},
+						},
+					},
+				});
+            
+            
+				var AcknowledgeChart = new Chart(document.getElementById('AcknowledgeChart').getContext('2d'), {
+					type: 'pie', // bar, horizontalBar, line, doughnut, pie
+					data: {
+						labels: ['Other', 'Received'],
+						datasets: [
+							{
+								backgroundColor: ['#f44336', '#00b300'],
+								data: [4, 2],
+								borderWidth: 0.5,
+								hoverBackgroundColor: 'Cyan',
+							},
+						]
+					},
+					options: {
+						maintainAspectRatio: false, // true, false
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+							},
+						},
+						plugins: {
+							datalabels: {
+								color: 'White',
+								anchor: 'center',
+								align: 'center',
+								font: {
+									weight: 'bold',
+								},
+							},
+						},
+					},
+				});
+            
+            
+				var ProjectChart = new Chart(document.getElementById('ProjectChart').getContext('2d'), {
+					type: 'pie', // bar, horizontalBar, line, doughnut, pie
+					data: {
+						labels: ['Controller', 'Panel'],
+						datasets: [
+							{
+								backgroundColor: ['#87CB16', '#ff9800'],
+								data: [2, 4],
+								borderWidth: 0.5,
+								hoverBackgroundColor: '#ff99ff',
+							},
+						]
+					},
+					options: {
+						maintainAspectRatio: false, // true, false
+						legend: {
+							position: 'bottom',
+							labels: {
+								usePointStyle: true,
+							},
+						},
+						plugins: {
+							datalabels: {
+								color: 'White',
+								anchor: 'center',
+								align: 'center',
+								font: {
+									weight: 'bold',
+								},
+							},
+						},
+					},
+				});
+            
+
+		</script>
+    
+		
