@@ -833,3 +833,20 @@ SELECT			L.*,
 [08-Feb-2021 23:49:35 Asia/Dhaka] User error: Unknown column 'LT.LoanID' in 'field list' in C:\xampp\htdocs\sPHP\library\object\database.php on line 248
 [08-Feb-2021 23:51:47 Asia/Dhaka] User error: Undefined index: RecordCountPerPage in C:\xampp\htdocs\insurance\script\Loan\LoanHistory.php on line 76
 [08-Feb-2021 23:53:40 Asia/Dhaka] User error: Undefined index: LoanLoanID in C:\xampp\htdocs\sPHP\library\object\html\ui\datagrid.php on line 431
+[09-Feb-2021 14:46:19 Asia/Dhaka] User error: Database: 42000 (1064): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'OR			T.LoanID IS NOT NULL
+							LIMIT			0, 20		
+							;
+								
+						...' at line 17 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[09-Feb-2021 14:46:35 Asia/Dhaka] User error: Database: 42000 (1064): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'OR			T.LoanID IS NOT NULL
+							LIMIT			0, 20		
+							;
+								
+						...' at line 17 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[09-Feb-2021 14:46:36 Asia/Dhaka] User error: Database: 42000 (1064): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'OR			T.LoanID IS NOT NULL
+							LIMIT			0, 20		
+							;
+								
+						...' at line 17 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[09-Feb-2021 15:15:29 Asia/Dhaka] User error: Database: 42S22 (1054): Unknown column 'L.LoanIdentity' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[09-Feb-2021 15:29:36 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\management\report\upcomingpayment.php on line 7

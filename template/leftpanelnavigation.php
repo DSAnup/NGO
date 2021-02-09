@@ -16,6 +16,10 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 		new HTML\UI\Accordion\Item($Caption = "Check Loan", null, $Application->URL("Loan/LoanTransaction"), null, null, "" . strtolower("" . ($PadKey = "LoanTransaction") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 		new HTML\UI\Accordion\Item($Caption = "Loan History", null, $Application->URL("Loan/LoanHistory"), null, null, "" . strtolower("" . ($PadKey = "LoanHistory") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "Lend") . " Section", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
+
+	$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Accordion\Pad([
+		new HTML\UI\Accordion\Item($Caption = "Upcoming Payment", null, $Application->URL("Management/Report/UpcomingPayment"), null, null, "" . strtolower("" . ($PadKey = "UpcomingPayment") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+	], "" . ($Caption = "Report") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 	
 	$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Accordion\Pad([
 		new HTML\UI\Accordion\Item($Caption = "User", null, $Application->URL("Management/Generic/{$Caption}"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "User")) . "", "{$Caption}", null, "{$Key}"),
