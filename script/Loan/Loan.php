@@ -215,7 +215,7 @@ if(isset($_POST["btnExport"])){
 	foreach($Recordset as $RecordIndex => $Record)$CSVRow[] = [
 		($Field = "#") 					=> $RecordIndex + 1, 
 		($Field = "Task") 				=> $Record["TaskName"], 
-		($Field = "Daily Report") 		      => $Record["DailyTaskReport"], 
+		($Field = "Daily Report") 		=> $Record["DailyTaskReport"], 
 		($Field = "Comment") 			      => $Record["DailyTaskComments"], 
 		($Field = "Remark") 			      => $Record["DailyTaskRemarks"], 
 		($Field = "Date") 				=> $Record["DailyTaskDateAssign"], 

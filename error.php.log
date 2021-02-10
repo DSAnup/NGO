@@ -850,3 +850,40 @@ SELECT			L.*,
 						...' at line 17 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
 [09-Feb-2021 15:15:29 Asia/Dhaka] User error: Database: 42S22 (1054): Unknown column 'L.LoanIdentity' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
 [09-Feb-2021 15:29:36 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\management\report\upcomingpayment.php on line 7
+[10-Feb-2021 11:38:24 Asia/Dhaka] User error: Database: 42000: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT 			LT.LoanID,
+											LT.LoanTransactionPayableDate AS PayDate,
+	...' at line 5 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:40:04 Asia/Dhaka] User error: Undefined index: TerminalCount in E:\xampp\htdocs\insurance\script\management\report\upcomingpayment.php on line 44
+[10-Feb-2021 11:40:44 Asia/Dhaka] User error: Undefined index: PerInstallment in E:\xampp\htdocs\sPHP\library\object\html\ui\datagrid.php on line 427
+[10-Feb-2021 11:41:15 Asia/Dhaka] User error: Database: 42000 (1064): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM 			ims_loantransaction AS LT
+								LEFT JOIN	ims_loan AS L ON L.LoanI...' at line 7 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:43:09 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:45:27 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:45:38 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:45:39 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:47:24 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:47:54 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:48:36 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:50:29 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:53:13 Asia/Dhaka] User error: Database: 42S22: Unknown column 'LS.LoanSchemePayPerInstallment' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 11:57:34 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 12:02:58 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 12:04:13 Asia/Dhaka] User error: Database: 42S22: Unknown column 'U.UserSignInName' in 'where clause' in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[10-Feb-2021 13:34:17 Asia/Dhaka] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ']' in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 93
+[10-Feb-2021 13:34:17 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[10-Feb-2021 13:35:34 Asia/Dhaka] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ']' in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 93
+[10-Feb-2021 13:35:34 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[10-Feb-2021 13:36:37 Asia/Dhaka] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ']' in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 93
+[10-Feb-2021 13:36:37 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[10-Feb-2021 13:38:02 Asia/Dhaka] User error: Undefined variable: EntityIsPaid in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 93
+[10-Feb-2021 13:40:37 Asia/Dhaka] PHP Fatal error:  Uncaught Error: Call to a member function Name() on string in E:\xampp\htdocs\sPHP\library\object\html\ui\datagrid.php:522
+Stack trace:
+#0 E:\xampp\htdocs\insurance\script\Loan\LoanView.php(130): sPHP\HTML\UI\Datagrid->HTML()
+#1 E:\xampp\htdocs\sPHP\private_function.php(47): require('E:\\xampp\\htdocs...')
+#2 E:\xampp\htdocs\sPHP\class.php(1494): sPHP\___ExecuteApplicationScript(Object(sPHP\Application), Object(sPHP\Template), Array)
+#3 [internal function]: sPHP\Application->__destruct()
+#4 {main}
+  thrown in E:\xampp\htdocs\sPHP\library\object\html\ui\datagrid.php on line 522
+[10-Feb-2021 13:41:57 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '{', expecting ')' in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 94
+[10-Feb-2021 13:41:57 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[10-Feb-2021 13:42:44 Asia/Dhaka] User error: Undefined index: LoanTransactionIsPaid in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 94

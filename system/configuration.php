@@ -101,7 +101,6 @@
 												"{$Environment->URL()}javascript/3rdparty/chartjs/chartjs-plugin-datalabels.js",
 												"{$Environment->URL()}javascript/3rdparty/md5.js",
 												"{$Environment->URL()}javascript/3rdparty/w2ui/w2ui-1.5.rc1.js",
-												"{$Environment->URL()}javascript/3rdparty/markerAnimate.js",
 												//"{$Environment->URL()}javascript/3rdparty/popper.min.js",
 												"{$Environment->URL()}javascript/3rdparty/moment.min.js",
 												//"{$Environment->URL()}javascript/3rdparty/bootstrap/bootstrap.min.js",

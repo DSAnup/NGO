@@ -6,9 +6,9 @@ $Entity = "Loan";
 // SetVariable("Keyword", $_POST['Keyword']);
 $WhereClause = implode(" AND ", array_filter([
 	"TRUE",
-	"MONTH(LT.LoanTransactionPayableDate) = MONTH(CURRENT_DATE())",
-	"YEAR(LT.LoanTransactionPayableDate) = YEAR(CURRENT_DATE())",
-	"LT.LoanTransactionIsPaid = 0",
+	"MONTH(LT.LoanTransactionPaidDate) = MONTH(CURRENT_DATE())",
+	"YEAR(LT.LoanTransactionPaidDate) = YEAR(CURRENT_DATE())",
+	"LT.LoanTransactionIsPaid = 1",
 	SetVariable("Keyword") ? "(
 			U.UserSignInName LIKE '%{$_POST["Keyword"]}%'
 			OR LT.LoanID LIKE '%{$_POST["Keyword"]}%'
@@ -25,7 +25,7 @@ $RecoredSet = $Database->Query("
 							WHERE			{$WhereClause};
 
 							SELECT 			LT.LoanID,
-											LT.LoanTransactionPayableDate AS PayDate,
+											LT.LoanTransactionPaidDate AS PayDate,
 											U.UserSignInName,
 											L.LoanDate,
 											CONCAT(L.LoanPrefix, '_', L.LoanID) AS LoanIdentity,
@@ -57,7 +57,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanIdentity", "Loan Number", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "UserSignInName", "Client", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanDate", "Loan Creation", FIELD_TYPE_SHORTDATE, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PayDate", "Payable Date", FIELD_TYPE_SHORTDATE, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PayDate", "Paid Date", FIELD_TYPE_SHORTDATE, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Installment Amount", null, null),
 	],
 	"History",

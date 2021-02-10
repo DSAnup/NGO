@@ -48,7 +48,7 @@ $EM->BeforeInput(function($Entity, $Record){
 
 	return true;
 });
-// DebugDump($_POST);
+DebugDump($RecoredSet[1]);
 if(isset($_POST["btnInput"])){
 	$NewRecordMode = isset($_POST["{$Entity}ID"]) && intval($_POST["{$Entity}ID"]) ? false : true;
 
@@ -58,7 +58,10 @@ if(isset($_POST["btnInput"])){
 		if($EM->Input()){
 
 			$Terminal->Redirect("{$_POST["_Referer"]}&SucceededAction=Input"); // Redirect to previous location
+			
+			// echo "myFunction();";
 		}
+
 	}
 
 	$EM->LoadExistingData();
@@ -86,7 +89,9 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	$_POST["RecordCountPerPage"],
 	"{$Entity}ID",
 	[
-		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST['_Script'], "btnInput". "&LoanID=" . SetVariable("Keyword2") . ""),null, null, null, "Edit", null, null),
+		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST['_Script'], "btnInput"),null, null, null, "Edit", null, null),
+		"{$Entity}IsPaid" == 0 ? new HTML\UI\Datagrid\Action("{$Environment->IconURL()}print.png", null, $Application->URL($_POST['_Script'], "btnInput"),null, null, null, "Print", null, null): null,
+		// new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST['_Script'], "btnInput"),null, null, null, $RecoredSet[1]["{$Entity}IsPaid"], null, null),
 	],
 	null,
 	null,
@@ -111,6 +116,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	,
 	null,
 	null,
+	null,
 	false,
 	null,
 	null,
@@ -122,3 +128,9 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
     .Datagrid > .Content > .Grid > tbody > tr > td > .Suspended{height: 40px; color: Red; text-decoration: none;}
 </style>
  <?=$CreateCustomDataGrid->HTML()?>
+
+ <script>
+	function myFunction() {
+		window.print();
+	}
+</script>
