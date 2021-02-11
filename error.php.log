@@ -918,3 +918,8 @@ Stack trace:
 [11-Feb-2021 12:49:48 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
 [11-Feb-2021 15:16:54 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '.' in E:\xampp\htdocs\insurance\script\dashboard.php on line 50
 [11-Feb-2021 15:16:54 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:25:45 Asia/Dhaka] PHP Parse error:  syntax error, unexpected 'PAID' (T_STRING), expecting ')' in E:\xampp\htdocs\insurance\script\dashboard.php on line 30
+[11-Feb-2021 17:25:45 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:26:21 Asia/Dhaka] PHP Parse error:  syntax error, unexpected ''PAID'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in E:\xampp\htdocs\insurance\script\dashboard.php on line 30
+[11-Feb-2021 17:26:21 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 17:39:23 Asia/Dhaka] User error: Use of undefined constant StatusRecordSet - assumed 'StatusRecordSet' (this will throw an Error in a future version of PHP) in E:\xampp\htdocs\insurance\script\dashboard.php on line 45
