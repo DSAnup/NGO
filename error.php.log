@@ -887,3 +887,32 @@ Stack trace:
 [10-Feb-2021 13:41:57 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '{', expecting ')' in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 94
 [10-Feb-2021 13:41:57 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
 [10-Feb-2021 13:42:44 Asia/Dhaka] User error: Undefined index: LoanTransactionIsPaid in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 94
+[11-Feb-2021 10:19:30 Asia/Dhaka] User error: Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in E:\xampp\htdocs\insurance\template\leftpanelnavigation.php on line 13
+[11-Feb-2021 11:03:25 Asia/Dhaka] User error: Database: HY000 (145): Table '.\insurance\ims_loantransaction' is marked as crashed and should be repaired in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[11-Feb-2021 11:03:33 Asia/Dhaka] User error: Database: HY000 (145): Table '.\insurance\ims_loantransaction' is marked as crashed and should be repaired in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[11-Feb-2021 11:12:35 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 11:14:44 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 11:52:13 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 11:54:25 Asia/Dhaka] User error: Undefined index: Keyword2 in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 11
+[11-Feb-2021 11:59:45 Asia/Dhaka] User error: Database: 42000: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''%9%'
+	);
+
+								SELECT 			LT.LoanTransactionPayableDate,
+												L...' at line 5 in E:\xampp\htdocs\sPHP\library\object\database.php on line 520
+[11-Feb-2021 12:11:54 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '.' in E:\xampp\htdocs\insurance\script\dashboard.php on line 15
+[11-Feb-2021 12:11:54 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 12:12:50 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '.' in E:\xampp\htdocs\insurance\script\dashboard.php on line 23
+[11-Feb-2021 12:12:50 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 12:15:25 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '"</div>' (T_CONSTANT_ENCAPSED_STRING) in E:\xampp\htdocs\insurance\script\dashboard.php on line 28
+[11-Feb-2021 12:15:25 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[11-Feb-2021 12:41:10 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:41:26 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:41:42 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:41:50 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:43:29 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:43:55 Asia/Dhaka] User error: Undefined index: LoanTransactionID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:45:47 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:45:51 Asia/Dhaka] User error: Undefined index: _Script&LoanID={$_POST["Keyword2"]} in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 92
+[11-Feb-2021 12:45:54 Asia/Dhaka] User error: Undefined index: _Script&LoanID={$_POST["Keyword2"]} in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 92
+[11-Feb-2021 12:49:35 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 12:49:48 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7

@@ -48,7 +48,7 @@ $EM->BeforeInput(function($Entity, $Record){
 
 	return true;
 });
-DebugDump($RecoredSet[1]);
+// DebugDump($RecoredSet[1]);
 if(isset($_POST["btnInput"])){
 	$NewRecordMode = isset($_POST["{$Entity}ID"]) && intval($_POST["{$Entity}ID"]) ? false : true;
 
@@ -89,9 +89,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	$_POST["RecordCountPerPage"],
 	"{$Entity}ID",
 	[
-		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST['_Script'], "btnInput"),null, null, null, "Edit", null, null),
-		"{$Entity}IsPaid" == 0 ? new HTML\UI\Datagrid\Action("{$Environment->IconURL()}print.png", null, $Application->URL($_POST['_Script'], "btnInput"),null, null, null, "Print", null, null): null,
-		// new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST['_Script'], "btnInput"),null, null, null, $RecoredSet[1]["{$Entity}IsPaid"], null, null),
+		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST['_Script'], "btnInput" . "&Keyword=" . SetVariable("Keyword") . "". "&LoanID=" . SetVariable("Keyword2") . ""),null, null, null, "Edit", null, null),
 	],
 	null,
 	null,
