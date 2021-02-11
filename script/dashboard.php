@@ -28,7 +28,7 @@ $RecoredSet = $Database->Query("
 
 
 ");
-DebugDump($RecoredSet);
+// DebugDump($RecoredSet[0][0]);
 
 print "<div class=\"Welcome\">
             <div class=\"Title\">Welcome {$User->Name()}!</div>
@@ -43,16 +43,23 @@ $Output[] = "
             </div>
 
 
-            <div class=\"Container Container_3Column\">
-                  <div class=\"Subtitle\">Unpaid</div>
-                  <div class=\"Content Content_Height247\">" . $Month . "</div>
-            </div>
-
-            <div class=\"Container Container_3Column\">
+            <div class=\"Container Container_3Column\" id=\"paid\">
                   <div class=\"Subtitle\">Paid</div>
-                  <div class=\"Content Content_Height247\"></div>
+                  <div class=\"Content Content_Height247\">
+                        <h3>" . $Month . "</h3>
+                        <p> Complete " . $RecoredSet[0][0]['PaidCount'] . " Transactions</p>
+                        <p> Paid Amount $" . $RecoredSet[0][0]['PaidTotal'] . "</p>
+                  </div>
             </div>
 
+            <div class=\"Container Container_3Column\" id=\"unpaid\">
+                  <div class=\"Subtitle\">Due</div>
+                  <div class=\"Content Content_Height247\">
+                        <h3>" . $Month . "</h3>
+                        <p> Remain " . $RecoredSet[1][0]['UnPaidCount'] . " Transactions</p>
+                        <p> Due Amount $" . $RecoredSet[1][0]['UnPaidTotal'] . "</p>
+                  </div>
+            </div>
       </div>";
 
 

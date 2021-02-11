@@ -916,3 +916,5 @@ Stack trace:
 [11-Feb-2021 12:45:54 Asia/Dhaka] User error: Undefined index: _Script&LoanID={$_POST["Keyword2"]} in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 92
 [11-Feb-2021 12:49:35 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
 [11-Feb-2021 12:49:48 Asia/Dhaka] User error: Undefined index: LoanID in E:\xampp\htdocs\insurance\script\Loan\LoanView.php on line 7
+[11-Feb-2021 15:16:54 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '.' in E:\xampp\htdocs\insurance\script\dashboard.php on line 50
+[11-Feb-2021 15:16:54 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
