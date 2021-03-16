@@ -19,10 +19,10 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 	// ]),
 
 	$MasterAccess ? new HTML\UI\Accordion\Pad([
-		new HTML\UI\Accordion\Item($Caption = "Loan Scheme Setting", null, $Application->URL("Loan/LoanScheme"), null, null, "" . strtolower("" . ($PadKey = "LoanScheme") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
-		new HTML\UI\Accordion\Item($Caption = "Create Loan", null, $Application->URL("Loan/Loan"), null, null, "" . strtolower("" . ($PadKey = "Loan") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Loan Scheme Setting", null, $Application->URL("loan/loanshceme"), null, null, "" . strtolower("" . ($PadKey = "LoanScheme") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Create Loan", null, $Application->URL("loan/loan"), null, null, "" . strtolower("" . ($PadKey = "Loan") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 		// new HTML\UI\Accordion\Item($Caption = "Check Loan", null, $Application->URL("Loan/LoanTransaction"), null, null, "" . strtolower("" . ($PadKey = "LoanTransaction") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
-		new HTML\UI\Accordion\Item($Caption = "Loan History", null, $Application->URL("Loan/LoanHistory"), null, null, "" . strtolower("" . ($PadKey = "LoanHistory") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Loan History", null, $Application->URL("loan/loanhistory"), null, null, "" . strtolower("" . ($PadKey = "LoanHistory") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "Lend") . " Section", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 
 	$MasterAccess  ? new HTML\UI\Accordion\Pad([
@@ -30,8 +30,16 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 		new HTML\UI\Accordion\Item($Caption = "Current Month Paid", null, $Application->URL("Management/Report/CurrentMonthPaid"), null, null, "" . strtolower("" . ($PadKey = "CurrentMonthPaid") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "Report") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 	
+
 	$MasterAccess ? new HTML\UI\Accordion\Pad([
-		new HTML\UI\Accordion\Item($Caption = "User", null, $Application->URL("Management/Generic/{$Caption}"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "User")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Invest Scheme Setting", null, $Application->URL("Invest/InvestSchemeSettings"), null, null, "" . strtolower("" . ($PadKey = "InvestSchemeSettings") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Create Invest", null, $Application->URL("Invest/Invest"), null, null, "" . strtolower("" . ($PadKey = "Invest") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Invest History", null, $Application->URL("Invest/InvestHistory"), null, null, "" . strtolower("" . ($PadKey = "InvestHistory") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+	], "" . ($Caption = "Invest") . " Section", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
+
+	$MasterAccess ? new HTML\UI\Accordion\Pad([
+		$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Accordion\Item($Caption = "User", null, $Application->URL("Management/Generic/{$Caption}"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "User")) . "", "{$Caption}", null, "{$Key}"): null,
+		new HTML\UI\Accordion\Item($Caption = "User", null, $Application->URL("Management/Generic/Customer"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "Customer")) . "", "{$Caption}", null, "{$Key}"),
 		$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Accordion\Item($Caption = "User group", null, $Application->URL("Management/Generic/UserGroup"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "UserGroup")) . "", "{$Caption}", null, "{$Key}"): null,
 	], "" . ($Caption = "Administration") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 	$Session->IsGuest() ? new HTML\UI\Accordion\Pad([

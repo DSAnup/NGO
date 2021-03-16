@@ -2,10 +2,9 @@
 namespace sPHP;
 
 #region Entity management common configuration
-$EM = new EntityManagement($Table[$Entity = "Loan"]);
+$EM = new EntityManagement($Table[$Entity = "Invest"]);
 //DebugDump($Table[$Entity]->Structure());
-
-$BorrowerUser = $Database->Query("
+$InvestUser = $Database->Query("
 								SELECT 			U.*,
 												@UserName := CONCAT(
 													U.UserNameFirst,
@@ -16,21 +15,19 @@ $BorrowerUser = $Database->Query("
 												CONCAT(@UserName, ' [', U.UserPhoneMobile, ']') AS UserLookupCaption
 								FROM 			sphp_userusergroup AS UUG
 									LEFT JOIN 	sphp_user AS U ON U.UserID = UUG.UserID
-								WHERE 			UUG.UserGroupID = 12"
+								WHERE 			UUG.UserGroupID = 13"
 							)[0];
-
-// DebugDump($User);
 $EM->ImportField([
 	new Database\Field("" . ($Field = "User") . "ID", "" . ($Column = "{$Field}SignInName") . "", null, $Table["{$Field}"], null),
-	new Database\Field("" . ($Field = "LoanScheme") . "ID", "" . ($Column = "{$Field}Name") . "", null, $Table["{$Field}"], null),
+	new Database\Field("" . ($Field = "InvestSchemeSettings") . "ID", "" . ($Column = "{$Field}Name") . "", null, $Table["{$Field}"], null),
 	new Database\Field("{$Entity}" . ($Field = "Date") . "", "{$Field}"),
 	new Database\Field("{$Entity}Is" . ($Field = "Active") . "", "{$Field}"),
 	//new Database\Field("" . ($Field = "Listener") . "ID", "{$Field}", null, $Table["{$Field}"], "{$Field}Name"),
 ]);
 
 $EM->InputValidation([
-      new HTTP\InputValidation("UserID", null, VALIDATION_TYPE_INTEGER),
-      new HTTP\InputValidation("LoanSchemeID", null, VALIDATION_TYPE_INTEGER),
+    new HTTP\InputValidation("UserID", null, VALIDATION_TYPE_INTEGER),
+    new HTTP\InputValidation("InvestSchemeSettingsID", null, VALIDATION_TYPE_INTEGER),
 	new HTTP\InputValidation("{$Entity}Date", true, null),
 	new HTTP\InputValidation("{$Entity}IsActive", null, VALIDATION_TYPE_INTEGER),
 ]);
@@ -63,15 +60,15 @@ $EM->IntermediateEntity("xCategory, xEvent");
 $EM->DefaultFromSearchColumn("xTerminalID, xUserID, xCarrierID");
 
 $EM->ListColumn([
-    new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "SignInName", "Borrower", null, null),
-    new HTML\UI\Datagrid\Column("" . ($Caption = "LoanScheme") . "Name", "Scheme Name", null, null),
+    new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "SignInName", "Investor", null, null),
+    new HTML\UI\Datagrid\Column("" . ($Caption = "InvestSchemeSettings") . "Name", "Scheme Name", null, null),
     new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "Date") . "", "{$Caption}", FIELD_TYPE_SHORTDATE, null),
 	new HTML\UI\Datagrid\Column("{$Entity}Is" . ($Caption = "Active") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON),
 ]);
 
 $EM->Action([
 	//new HTML\UI\Datagrid\Action("{$Environment->IconURL()}{$Entity}" . strtolower($ActionEntity = "CommercialInvoice") . ".png", null, $Application->URL("{$Entity}/{$ActionEntity}"), "_blank", null, null, "Commercial invoice"),
-	new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Loan/LoanView", "btnSubmit"), "_blank", null, null, "View", null, null),
+	new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Invest/InvestView", "btnSubmit"), "_blank", null, null, "View", null, null),
 	new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST["_Script"], "btnInput"), null, null, null, "Edit"),
 	$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Datagrid\Action("{$Environment->IconURL()}delete.png", null, $Application->URL($_POST["_Script"], "btnDelete"), null, "return confirm('Are you sure to remove the information?');", null, "Delete"):null,
 ]);
@@ -130,30 +127,30 @@ if(isset($_POST["btnInput"])){
 
 		if($EM->Input()){
 
-			$LastLoanInfo = $Database->Query("
-												SELECT 			L.LoanID,
+			$LastInvestInfo = $Database->Query("
+												SELECT 			L.InvestID,
 																L.UserID,
-																LS.LoanSchemeDay,
-																L.LoanDate,
-																LS.LoanSchemeTotalInstallment
+																LS.InvestSchemeSettingsDay,
+																L.InvestDate,
+																LS.InvestSchemeSettingsTotalInstallment
 
-												FROM			ims_loan AS L
-													LEFT JOIN	ims_loanscheme AS LS ON LS.LoanSchemeID = L.LoanSchemeID 
-												ORDER BY		L.LoanID DESC
+												FROM			ims_Invest AS L
+													LEFT JOIN	ims_InvestSchemeSettings AS LS ON LS.InvestSchemeSettingsID = L.InvestSchemeSettingsID 
+												ORDER BY		L.InvestID DESC
 												LIMIT			1
 			")[0][0];
 			
-			$SecondaryTable = 'LoanTransaction';
+			$SecondaryTable = 'InvestTransaction';
 			$StartPoint = 1;
-			$date = date("Y-m-d", strtotime($LastLoanInfo['LoanDate']));
+			$date = date("Y-m-d", strtotime($LastInvestInfo['InvestDate']));
 
-			while($StartPoint<=$LastLoanInfo['LoanSchemeTotalInstallment']){
+			while($StartPoint<=$LastInvestInfo['InvestSchemeSettingsTotalInstallment']){
 				$date = strtotime($date);
-				$date = date("Y-m-d", strtotime("+{$LastLoanInfo['LoanSchemeDay']} day", $date));
+				$date = date("Y-m-d", strtotime("+{$LastInvestInfo['InvestSchemeSettingsDay']} day", $date));
 				$Table["{$SecondaryTable}"]->Put([ // Save information into database
-					($Field = "LoanID")=>$LastLoanInfo["LoanID"],
+					($Field = "InvestID")=>$LastInvestInfo["InvestID"],
 					($Field = "{$SecondaryTable}IsActive")=>$_POST["{$Entity}IsActive"],
-					($Field = "LoanTransactionPayableDate")=>$date,
+					($Field = "InvestTransactionPayableDate")=>$date,
 				]);
 				$StartPoint++;
 			}
@@ -173,8 +170,8 @@ if(isset($_POST["btnInput"])){
 	#endregion Custom code
 
 	$EM->InputUIHTML([
-        HTML\UI\Field(HTML\UI\Select("" . ($Caption = "User") . "ID", $BorrowerUser, null, "{$Caption}LookupCaption", null, null, null), "Borrower", true, null, $EM->FieldCaptionWidth()),
-        HTML\UI\Field(HTML\UI\Select("" . ($Caption = "LoanScheme") . "ID", $Table[$OptionEntity = "{$Caption}"]->Get("{$Table["{$OptionEntity}"]->Alias()}.{$OptionEntity}IsActive = 1", "{$OptionEntity}LookupCaption ASC"), null, "{$OptionEntity}LookupCaption", null, null, null), "Scheme Settings", true, null, $EM->FieldCaptionWidth()),
+        HTML\UI\Field(HTML\UI\Select("" . ($Caption = "User") . "ID", $InvestUser , null, "{$Caption}LookupCaption", null, null, null), "Investor", true, null, $EM->FieldCaptionWidth()),
+        HTML\UI\Field(HTML\UI\Select("" . ($Caption = "InvestSchemeSettings") . "ID", $Table[$OptionEntity = "{$Caption}"]->Get("{$OptionEntity}IsActive = 1", "{$OptionEntity}Name ASC"), null, "{$OptionEntity}Name", null, null, null), "Scheme Settings", true, null, $EM->FieldCaptionWidth()),
 		HTML\UI\Field(HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Date", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "Date", true, null, $EM->FieldCaptionWidth()),
 		HTML\UI\Field(HTML\UI\RadioGroup("{$Entity}Is" . ($Caption = "Active") . "", [new HTML\UI\Radio(1, "Yes"), new HTML\UI\Radio(0, "No")]), "{$Caption}", true, null, $EM->FieldCaptionWidth()),
 	]);
@@ -214,7 +211,7 @@ $EM->SearchSQL([
 ]);
 
 $EM->SearchUIHTML([
-	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $BorrowerUser , new Option(), "{$Caption}LookupCaption", null, null, null), "Borrower", null, null),
+	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $InvestUser , new Option(), "{$Caption}LookupCaption", null, null, null), "Investor", null, null),
 	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}{$Entity}Is" . ($Caption = "Active") . "", [new Option(), new Option(0, "No"), new Option(1, "Yes")]), "{$Caption}", null, true),
 	HTML\UI\Field(
 		HTML\UI\Input("{$EM->SearchInputPrefix()}{$Entity}Date" . ($Caption = "Assign") . "From", null, null, null, INPUT_TYPE_DATE) .

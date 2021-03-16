@@ -75,6 +75,10 @@
 												"" . ($Entity = "Loan") . "" => new Database\Table("{$Entity}", null, null, null, null, null, "ims_"),
 												"" . ($Entity = "Loan") . "Scheme" => new Database\Table("{$Entity} scheme", null, null, null, null, null, "ims_"),
 												"" . ($Entity = "Loan") . "Transaction" => new Database\Table("{$Entity} transaction", null, null, null, null, null, "ims_"),
+												"" . ($Entity = "Invest") . "" => new Database\Table("{$Entity}", null, null, null, null, null, "ims_"),
+												"" . ($Entity = "Invest") . "Scheme" . "Settings" => new Database\Table("{$Entity} scheme settings", null, null, null, null, null, "ims_"),
+												"" . ($Entity = "Invest") . "Transaction" => new Database\Table("{$Entity} transaction", null, null, null, null, null, "ims_"),
+												
 											],
 
 		// "FieldCaptionWidth"				=>	140,

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2021 at 12:48 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.11
+-- Generation Time: Mar 16, 2021 at 08:28 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.1.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,6 +25,158 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ims_invest`
+--
+
+CREATE TABLE `ims_invest` (
+  `InvestID` int(11) NOT NULL,
+  `InvestSchemeSettingsID` int(11) DEFAULT NULL,
+  `UserID` int(11) DEFAULT NULL,
+  `InvestPrefix` varchar(255) DEFAULT 'INV',
+  `InvestDate` datetime DEFAULT NULL,
+  `InvestIsActive` tinyint(1) NOT NULL DEFAULT '0',
+  `UserIDInserted` int(11) DEFAULT NULL,
+  `UserIDUpdated` int(11) DEFAULT NULL,
+  `UserIDLocked` int(11) DEFAULT NULL,
+  `TimeInserted` datetime DEFAULT NULL,
+  `TimeUpdated` datetime DEFAULT NULL,
+  `TimeLocked` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ims_invest`
+--
+
+INSERT INTO `ims_invest` (`InvestID`, `InvestSchemeSettingsID`, `UserID`, `InvestPrefix`, `InvestDate`, `InvestIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
+(1, 2, 898, 'INV', '2021-02-15 00:09:00', 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(2, 1, 3, 'INV', '2021-03-17 00:56:00', 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ims_investschemesettings`
+--
+
+CREATE TABLE `ims_investschemesettings` (
+  `InvestSchemeSettingsID` int(11) NOT NULL,
+  `InvestSchemeSettingsName` varchar(255) DEFAULT NULL,
+  `InvestSchemeSettingsDay` int(11) DEFAULT NULL,
+  `InvestSchemeSettingsAmount` int(11) DEFAULT NULL,
+  `InvestSchemeSettingsPercentage` int(11) DEFAULT NULL,
+  `InvestSchemeSettingsPayPerInstallment` int(11) DEFAULT NULL,
+  `InvestSchemeSettingsReturnAmount` int(11) DEFAULT NULL,
+  `InvestSchemeSettingsTotalInstallment` int(11) DEFAULT NULL,
+  `InvestSchemeSettingsIsActive` tinyint(1) NOT NULL DEFAULT '0',
+  `UserIDInserted` int(11) DEFAULT NULL,
+  `UserIDUpdated` int(11) DEFAULT NULL,
+  `UserIDLocked` int(11) DEFAULT NULL,
+  `TimeInserted` datetime DEFAULT NULL,
+  `TimeUpdated` datetime DEFAULT NULL,
+  `TimeLocked` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ims_investschemesettings`
+--
+
+INSERT INTO `ims_investschemesettings` (`InvestSchemeSettingsID`, `InvestSchemeSettingsName`, `InvestSchemeSettingsDay`, `InvestSchemeSettingsAmount`, `InvestSchemeSettingsPercentage`, `InvestSchemeSettingsPayPerInstallment`, `InvestSchemeSettingsReturnAmount`, `InvestSchemeSettingsTotalInstallment`, `InvestSchemeSettingsIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
+(1, 'Weekly', 7, 150000, NULL, 2885, 166500, 52, 1, 2, NULL, NULL, '2021-03-16 23:46:27', NULL, NULL),
+(2, 'Monthly', 30, 150000, NULL, 12500, 166400, 12, 1, 2, 2, NULL, '2021-03-16 23:50:14', '2021-03-17 00:55:58', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ims_investtransaction`
+--
+
+CREATE TABLE `ims_investtransaction` (
+  `InvestTransactionID` int(11) NOT NULL,
+  `InvestID` int(11) DEFAULT NULL,
+  `InvestTransactionPayableDate` datetime DEFAULT NULL,
+  `InvestTransactionPaidDate` datetime DEFAULT NULL,
+  `InvestTransactionIsPaid` tinyint(1) NOT NULL DEFAULT '0',
+  `InvestTransactionIsActive` tinyint(1) NOT NULL DEFAULT '1',
+  `UserIDInserted` int(11) DEFAULT NULL,
+  `UserIDUpdated` int(11) DEFAULT NULL,
+  `UserIDLocked` int(11) DEFAULT NULL,
+  `TimeInserted` datetime DEFAULT NULL,
+  `TimeUpdated` datetime DEFAULT NULL,
+  `TimeLocked` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ims_investtransaction`
+--
+
+INSERT INTO `ims_investtransaction` (`InvestTransactionID`, `InvestID`, `InvestTransactionPayableDate`, `InvestTransactionPaidDate`, `InvestTransactionIsPaid`, `InvestTransactionIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
+(1, 1, '2021-03-17 00:00:00', '2021-03-17 00:00:00', 1, 1, 2, 2, NULL, '2021-03-17 00:09:47', '2021-03-17 00:33:11', NULL),
+(2, 1, '2021-04-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(3, 1, '2021-05-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(4, 1, '2021-06-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(5, 1, '2021-07-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(6, 1, '2021-08-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(7, 1, '2021-09-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(8, 1, '2021-10-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(9, 1, '2021-11-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(10, 1, '2021-12-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(11, 1, '2022-01-11 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(12, 1, '2022-02-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:09:47', NULL, NULL),
+(13, 2, '2021-03-24 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(14, 2, '2021-03-31 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(15, 2, '2021-04-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(16, 2, '2021-04-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(17, 2, '2021-04-21 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(18, 2, '2021-04-28 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(19, 2, '2021-05-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(20, 2, '2021-05-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(21, 2, '2021-05-19 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(22, 2, '2021-05-26 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(23, 2, '2021-06-02 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(24, 2, '2021-06-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(25, 2, '2021-06-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(26, 2, '2021-06-23 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(27, 2, '2021-06-30 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(28, 2, '2021-07-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(29, 2, '2021-07-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(30, 2, '2021-07-21 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(31, 2, '2021-07-28 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(32, 2, '2021-08-04 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(33, 2, '2021-08-11 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(34, 2, '2021-08-18 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(35, 2, '2021-08-25 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(36, 2, '2021-09-01 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(37, 2, '2021-09-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(38, 2, '2021-09-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(39, 2, '2021-09-22 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(40, 2, '2021-09-29 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(41, 2, '2021-10-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(42, 2, '2021-10-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(43, 2, '2021-10-20 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(44, 2, '2021-10-27 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(45, 2, '2021-11-03 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(46, 2, '2021-11-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(47, 2, '2021-11-17 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(48, 2, '2021-11-24 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(49, 2, '2021-12-01 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(50, 2, '2021-12-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(51, 2, '2021-12-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(52, 2, '2021-12-22 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(53, 2, '2021-12-29 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(54, 2, '2022-01-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(55, 2, '2022-01-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(56, 2, '2022-01-19 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(57, 2, '2022-01-26 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(58, 2, '2022-02-02 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(59, 2, '2022-02-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(60, 2, '2022-02-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(61, 2, '2022-02-23 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(62, 2, '2022-03-02 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(63, 2, '2022-03-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL),
+(64, 2, '2022-03-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-17 00:56:16', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ims_loan`
 --
 
@@ -33,7 +186,7 @@ CREATE TABLE `ims_loan` (
   `LoanSchemeID` int(11) DEFAULT NULL,
   `LoanPrefix` varchar(20) DEFAULT 'SCH',
   `LoanDate` datetime DEFAULT NULL,
-  `LoanIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `LoanIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -47,9 +200,8 @@ CREATE TABLE `ims_loan` (
 --
 
 INSERT INTO `ims_loan` (`LoanID`, `UserID`, `LoanSchemeID`, `LoanPrefix`, `LoanDate`, `LoanIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
-(1, 898, 4, 'SCH', '2021-02-09 12:06:00', 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(2, 1, 1, 'SCH', '2021-02-04 12:07:00', 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(3, 3, 4, 'SCH', '2021-02-07 15:10:00', 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL);
+(1, 901, 4, 'SCH', '2021-02-15 23:50:00', 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(2, 1, 1, 'SCH', '2021-03-15 23:51:00', 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -66,7 +218,7 @@ CREATE TABLE `ims_loanscheme` (
   `LoanSchemePayPerInstallment` int(11) DEFAULT NULL,
   `LoanSchemePayableAmount` int(11) DEFAULT NULL,
   `LoanSchemeTotalInstallment` int(11) DEFAULT NULL,
-  `LoanSchemeIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `LoanSchemeIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -94,8 +246,8 @@ CREATE TABLE `ims_loantransaction` (
   `LoanID` int(11) DEFAULT NULL,
   `LoanTransactionPayableDate` datetime DEFAULT NULL,
   `LoanTransactionPaidDate` datetime DEFAULT NULL,
-  `LoanTransactionIsPaid` tinyint(1) NOT NULL DEFAULT 0,
-  `LoanTransactionIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `LoanTransactionIsPaid` tinyint(1) NOT NULL DEFAULT '0',
+  `LoanTransactionIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -109,82 +261,82 @@ CREATE TABLE `ims_loantransaction` (
 --
 
 INSERT INTO `ims_loantransaction` (`LoanTransactionID`, `LoanID`, `LoanTransactionPayableDate`, `LoanTransactionPaidDate`, `LoanTransactionIsPaid`, `LoanTransactionIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
-(1, 1, '2021-03-11 00:00:00', '2021-02-09 00:00:00', 1, 1, 2, 2, NULL, '2021-02-09 12:06:35', '2021-02-09 12:06:47', NULL),
-(2, 1, '2021-04-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(3, 1, '2021-05-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(4, 1, '2021-06-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(5, 1, '2021-07-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(6, 1, '2021-08-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(7, 1, '2021-09-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(8, 1, '2021-10-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(9, 1, '2021-11-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(10, 1, '2021-12-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(11, 1, '2022-01-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(12, 1, '2022-02-04 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:06:35', NULL, NULL),
-(13, 2, '2021-02-16 00:00:00', '2021-02-09 00:00:00', 1, 1, 2, 2, NULL, '2021-02-09 12:07:19', '2021-02-09 12:07:31', NULL),
-(14, 2, '2021-02-23 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(15, 2, '2021-03-02 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(16, 2, '2021-03-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(17, 2, '2021-03-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(18, 2, '2021-03-23 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(19, 2, '2021-03-30 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(20, 2, '2021-04-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(21, 2, '2021-04-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(22, 2, '2021-04-20 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(23, 2, '2021-04-27 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(24, 2, '2021-05-04 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(25, 2, '2021-05-11 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(26, 2, '2021-05-18 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(27, 2, '2021-05-25 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(28, 2, '2021-06-01 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(29, 2, '2021-06-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(30, 2, '2021-06-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(31, 2, '2021-06-22 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(32, 2, '2021-06-29 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(33, 2, '2021-07-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(34, 2, '2021-07-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(35, 2, '2021-07-20 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(36, 2, '2021-07-27 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(37, 2, '2021-08-03 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(38, 2, '2021-08-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(39, 2, '2021-08-17 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(40, 2, '2021-08-24 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(41, 2, '2021-08-31 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(42, 2, '2021-09-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(43, 2, '2021-09-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(44, 2, '2021-09-21 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(45, 2, '2021-09-28 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(46, 2, '2021-10-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(47, 2, '2021-10-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(48, 2, '2021-10-19 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(49, 2, '2021-10-26 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(50, 2, '2021-11-02 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(51, 2, '2021-11-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(52, 2, '2021-11-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(53, 2, '2021-11-23 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(54, 2, '2021-11-30 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(55, 2, '2021-12-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(56, 2, '2021-12-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(57, 2, '2021-12-21 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(58, 2, '2021-12-28 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(59, 2, '2022-01-04 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(60, 2, '2022-01-11 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(61, 2, '2022-01-18 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(62, 2, '2022-01-25 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(63, 2, '2022-02-01 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(64, 2, '2022-02-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 12:07:19', NULL, NULL),
-(65, 3, '2021-03-11 00:00:00', '2021-02-10 00:00:00', 1, 1, 2, 899, NULL, '2021-02-09 15:11:48', '2021-02-10 13:24:21', NULL),
-(66, 3, '2021-04-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(67, 3, '2021-05-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(68, 3, '2021-06-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(69, 3, '2021-07-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(70, 3, '2021-08-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(71, 3, '2021-09-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(72, 3, '2021-10-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(73, 3, '2021-11-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(74, 3, '2021-12-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(75, 3, '2022-01-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL),
-(76, 3, '2022-02-04 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-02-09 15:11:48', NULL, NULL);
+(1, 1, '2021-03-17 00:00:00', '2021-02-17 00:00:00', 1, 1, 2, 2, NULL, '2021-03-15 23:50:28', '2021-03-15 23:50:57', NULL),
+(2, 1, '2021-04-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(3, 1, '2021-05-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(4, 1, '2021-06-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(5, 1, '2021-07-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(6, 1, '2021-08-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(7, 1, '2021-09-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(8, 1, '2021-10-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(9, 1, '2021-11-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(10, 1, '2021-12-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(11, 1, '2022-01-11 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(12, 1, '2022-02-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:50:28', NULL, NULL),
+(13, 2, '2021-03-22 00:00:00', '2021-03-15 00:00:00', 1, 1, 2, 2, NULL, '2021-03-15 23:51:36', '2021-03-15 23:51:49', NULL),
+(14, 2, '2021-03-29 00:00:00', '2021-03-19 00:00:00', 1, 1, 2, 2, NULL, '2021-03-15 23:51:36', '2021-03-15 23:53:01', NULL),
+(15, 2, '2021-04-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(16, 2, '2021-04-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(17, 2, '2021-04-19 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(18, 2, '2021-04-26 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(19, 2, '2021-05-03 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(20, 2, '2021-05-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(21, 2, '2021-05-17 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(22, 2, '2021-05-24 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(23, 2, '2021-05-31 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(24, 2, '2021-06-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(25, 2, '2021-06-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(26, 2, '2021-06-21 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(27, 2, '2021-06-28 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(28, 2, '2021-07-05 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(29, 2, '2021-07-12 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(30, 2, '2021-07-19 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(31, 2, '2021-07-26 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(32, 2, '2021-08-02 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(33, 2, '2021-08-09 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(34, 2, '2021-08-16 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(35, 2, '2021-08-23 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(36, 2, '2021-08-30 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(37, 2, '2021-09-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(38, 2, '2021-09-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(39, 2, '2021-09-20 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(40, 2, '2021-09-27 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(41, 2, '2021-10-04 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(42, 2, '2021-10-11 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(43, 2, '2021-10-18 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(44, 2, '2021-10-25 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(45, 2, '2021-11-01 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(46, 2, '2021-11-08 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(47, 2, '2021-11-15 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(48, 2, '2021-11-22 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(49, 2, '2021-11-29 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(50, 2, '2021-12-06 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(51, 2, '2021-12-13 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(52, 2, '2021-12-20 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(53, 2, '2021-12-27 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(54, 2, '2022-01-03 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(55, 2, '2022-01-10 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(56, 2, '2022-01-17 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(57, 2, '2022-01-24 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(58, 2, '2022-01-31 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(59, 2, '2022-02-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(60, 2, '2022-02-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(61, 2, '2022-02-21 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(62, 2, '2022-02-28 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(63, 2, '2022-03-07 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(64, 2, '2022-03-14 00:00:00', NULL, 0, 1, 2, NULL, NULL, '2021-03-15 23:51:36', NULL, NULL),
+(65, 3, '2021-04-16 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(66, 3, '2021-05-16 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(67, 3, '2021-06-15 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(68, 3, '2021-07-15 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(69, 3, '2021-08-14 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(70, 3, '2021-09-13 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(71, 3, '2021-10-13 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(72, 3, '2021-11-12 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(73, 3, '2021-12-12 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(74, 3, '2022-01-11 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(75, 3, '2022-02-10 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL),
+(76, 3, '2022-03-12 00:00:00', NULL, 0, 1, 900, NULL, NULL, '2021-03-17 01:15:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -195,9 +347,9 @@ INSERT INTO `ims_loantransaction` (`LoanTransactionID`, `LoanID`, `LoanTransacti
 CREATE TABLE `sphp_applicationchangelog` (
   `ApplicationChangeLogID` int(11) NOT NULL,
   `ApplicationChangeLogTitle` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ApplicationChangeLogDescription` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ApplicationChangeLogDescription` text COLLATE utf8_unicode_ci,
   `ApplicationChangeLogTime` datetime NOT NULL,
-  `ApplicationChangeLogIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `ApplicationChangeLogIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -223,8 +375,8 @@ CREATE TABLE `sphp_applicationtraffic` (
   `ApplicationTrafficProtocol` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ApplicationTrafficURL` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ApplicationTrafficScript` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ApplicationTrafficQuery` text COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ApplicationTrafficReferer` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ApplicationTrafficQuery` text COLLATE utf8_unicode_ci,
+  `ApplicationTrafficReferer` text COLLATE utf8_unicode_ci,
   `ApplicationTrafficUserAgent` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ApplicationTrafficResourceUsageDurationUser` int(11) DEFAULT NULL,
   `ApplicationTrafficResourceUsageDurationSystem` int(11) DEFAULT NULL,
@@ -255,17 +407,17 @@ CREATE TABLE `sphp_applicationtraffic` (
 CREATE TABLE `sphp_country` (
   `CountryID` int(11) NOT NULL,
   `CountryName` varchar(85) COLLATE utf8_unicode_ci NOT NULL,
-  `CountryCode` int(11) NOT NULL DEFAULT 0,
+  `CountryCode` int(11) NOT NULL DEFAULT '0',
   `CountryISOCode` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `CountryISOCode2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `CountryFlag` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `CountryMap` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `LanguageID` int(11) DEFAULT NULL,
   `CurrencyID` int(11) DEFAULT NULL,
-  `CountryIsActive` tinyint(1) NOT NULL DEFAULT 0,
-  `UserIDInserted` int(11) NOT NULL DEFAULT 0,
-  `UserIDUpdated` int(11) NOT NULL DEFAULT 0,
-  `UserIDLocked` int(11) NOT NULL DEFAULT 0,
+  `CountryIsActive` tinyint(1) NOT NULL DEFAULT '0',
+  `UserIDInserted` int(11) NOT NULL DEFAULT '0',
+  `UserIDUpdated` int(11) NOT NULL DEFAULT '0',
+  `UserIDLocked` int(11) NOT NULL DEFAULT '0',
   `TimeInserted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `TimeUpdated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `TimeLocked` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -536,7 +688,7 @@ CREATE TABLE `sphp_countrystate` (
   `CountryStateID` int(11) NOT NULL,
   `CountryID` int(11) NOT NULL,
   `StateName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `CountryStateIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `CountryStateIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -717,10 +869,10 @@ CREATE TABLE `sphp_language` (
   `LanguageNameNative` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `LanguageCode` varchar(85) COLLATE utf8_unicode_ci NOT NULL,
   `LanguageRegionalCode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `LanguageIsActive` tinyint(1) NOT NULL DEFAULT 0,
-  `UserIDInserted` int(11) NOT NULL DEFAULT 0,
-  `UserIDUpdated` int(11) NOT NULL DEFAULT 0,
-  `UserIDLocked` int(11) NOT NULL DEFAULT 0,
+  `LanguageIsActive` tinyint(1) NOT NULL DEFAULT '0',
+  `UserIDInserted` int(11) NOT NULL DEFAULT '0',
+  `UserIDUpdated` int(11) NOT NULL DEFAULT '0',
+  `UserIDLocked` int(11) NOT NULL DEFAULT '0',
   `TimeInserted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `TimeUpdated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `TimeLocked` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -853,9 +1005,9 @@ CREATE TABLE `sphp_notification` (
   `UserIDFrom` int(11) DEFAULT NULL,
   `UserIDTo` int(11) DEFAULT NULL,
   `NotificationAttemptTime` datetime DEFAULT NULL,
-  `NotificationAttempt` int(11) NOT NULL DEFAULT 0,
+  `NotificationAttempt` int(11) NOT NULL DEFAULT '0',
   `NotificationSentTime` datetime DEFAULT NULL,
-  `NotificationIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `NotificationIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -874,7 +1026,7 @@ CREATE TABLE `sphp_notificationsource` (
   `NotificationSourceID` int(11) NOT NULL,
   `NotificationSourceName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `NotificationSourceIdentifier` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `NotificationSourceIsActive` tinyint(11) NOT NULL DEFAULT 0,
+  `NotificationSourceIsActive` tinyint(11) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -1033,12 +1185,14 @@ CREATE TABLE `sphp_user` (
 --
 
 INSERT INTO `sphp_user` (`UserID`, `UserSignInName`, `UserEmail`, `UserPasswordHash`, `UserNameFirst`, `UserNameMiddle`, `UserNameLast`, `UserBirthDate`, `UserDeathDate`, `GenderID`, `UserPhoneMobile`, `UserPhoneHome`, `UserPhoneWork`, `UserPhoneOther`, `UserURL`, `UserPicture`, `UserPictureThumbnail`, `UserAddressStreet`, `UserAddressPoliceStation`, `UserAddressCity`, `UserAddressZIP`, `UserAddressState`, `UserAddressCountryID`, `LanguageID`, `UserSignUpTime`, `UserSignUpActivationKey`, `UserSignUpIsActivated`, `UserPasswordResetKey`, `UserPasswordResetAttemptTime`, `UserPasswordResetAttemptCount`, `UserIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
-(1, 'Guest', 'Guest@System.Dom', NULL, 'Guest', NULL, 'Visitor', '0000-00-00', NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2019-02-03 14:06:14', '2019-02-03 14:06:14', NULL),
+(1, 'Guest', 'Guest@System.Dom', NULL, 'Guest', NULL, 'Visitor', '0000-00-00', NULL, 3, '0182000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 109, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 2, NULL, '2019-02-03 14:06:14', '2021-03-15 23:22:51', NULL),
 (2, 'Administrator', 'Administrator@System.Dom', '5f4dcc3b5aa765d61d8327deb882cf99', 'System', NULL, 'Administrator', '2019-01-31', NULL, 3, '+00000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 2, NULL, '2019-02-03 14:06:14', '2021-01-13 11:06:57', NULL),
-(3, 'Member', 'Member@System.Dom', '5f4dcc3b5aa765d61d8327deb882cf99', 'General', NULL, 'User', '0000-00-00', NULL, 3, '+0000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 2, NULL, '2019-02-03 14:06:14', '2019-02-10 08:55:35', NULL),
-(24, 'Shahriar', 'Shahriar@SingularityBD.Com', '8dd43ae0638e1ce2690e2e3cfa653923', 'Shahriar', NULL, 'Kabir', '1978-07-19', NULL, 2, '+8801847464939', NULL, NULL, NULL, NULL, NULL, NULL, 'L#5, H#147, R#1, Baridhara DOHS', NULL, 'Dhaka', NULL, NULL, 1, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, 2, 2, NULL, '2019-07-23 00:27:57', '2021-02-10 13:01:14', NULL),
-(898, 'anup', 'anup@bondstein.com', 'bda3083124482f58ea35b182d658db99', 'Anup', NULL, 'Mondal', NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, 21, 2, NULL, '2020-10-27 16:57:56', '2021-02-11 12:22:55', NULL),
-(899, 'rajib', 'rajib@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Rajib', NULL, 'Tarafder', NULL, NULL, 2, '05885255', NULL, '555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 109, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, 2, 2, NULL, '2021-02-10 13:05:24', '2021-02-11 10:42:11', NULL);
+(3, 'Member', 'Member@System.Dom', '5f4dcc3b5aa765d61d8327deb882cf99', 'General', NULL, 'User', '0000-00-00', NULL, 3, '+0000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 2, NULL, '2019-02-03 14:06:14', '2021-03-15 23:23:11', NULL),
+(898, 'anup', 'anup@bondstein.com', 'bda3083124482f58ea35b182d658db99', 'Anup', NULL, 'Mondal', NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 0, NULL, NULL, NULL, 1, 21, 2, NULL, '2020-10-27 16:57:56', '2021-03-15 22:58:28', NULL),
+(899, 'anuphome', 'anup12.m@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Anup', NULL, 'Mondal', NULL, NULL, 1, '01823934024', NULL, NULL, NULL, NULL, NULL, NULL, '237/c, East Nakhalpara, Tejgaon, Dhaka-1215', NULL, NULL, '1215', 'Dhaka', 1, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-02-13 20:11:00', NULL, NULL),
+(900, 'rajib', 'rajib@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Rajib', NULL, 'Tarafder', NULL, NULL, 2, '018239688', NULL, NULL, NULL, NULL, NULL, NULL, 'Manikganj', NULL, NULL, NULL, NULL, 109, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-02-14 22:14:13', NULL, NULL),
+(901, 'Borrower', 'borrower@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Rajib', NULL, 'Tarafder', NULL, NULL, 2, '01823934000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 2, NULL, NULL, '2021-03-15 23:00:04', NULL, NULL),
+(902, 'test', 'test@test.com', 'e10adc3949ba59abbe56e057f20f883e', 'Test', NULL, 'Test', NULL, NULL, 1, '0182393409', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 0, NULL, NULL, NULL, 1, 2, 2, NULL, '2021-03-17 01:25:34', '2021-03-17 01:27:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -1049,13 +1203,13 @@ INSERT INTO `sphp_user` (`UserID`, `UserSignInName`, `UserEmail`, `UserPasswordH
 CREATE TABLE `sphp_userdevice` (
   `UserDeviceID` int(11) NOT NULL,
   `UserDeviceIdentifier` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `UserDeviceUserAgent` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `UserDeviceUserAgent` text COLLATE utf8_unicode_ci,
   `UserDeviceIP` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `UserDeviceCountry` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `UserDeviceCity` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `UserDeviceLatitude` float(13,9) DEFAULT NULL,
   `UserDeviceLongitude` float(13,9) DEFAULT NULL,
-  `UserDeviceIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `UserDeviceIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -1106,12 +1260,13 @@ CREATE TABLE `sphp_usergroup` (
 --
 
 INSERT INTO `sphp_usergroup` (`UserGroupID`, `UserGroupName`, `UserGroupIdentifier`, `UserGroupWeight`, `UserGroupIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
-(1, 'Guest', 'GUEST', 10.000, 1, NULL, NULL, NULL, '2019-02-03 14:06:14', '2019-02-03 14:06:14', NULL),
+(1, 'Guest', 'GUEST', 10.000, 1, NULL, 2, NULL, '2019-02-03 14:06:14', '2021-03-15 23:26:02', NULL),
 (2, 'Administrator', 'ADMINISTRATOR', 100.000, 1, NULL, 24, NULL, '2019-02-03 14:06:14', '2019-09-30 01:59:01', NULL),
-(3, 'Member', 'MEMBER', 50.000, 1, NULL, 24, NULL, '2019-02-03 14:06:14', '2019-09-30 01:59:08', NULL),
-(5, 'Customer', 'CUSTOMER', 65.000, 1, 24, NULL, NULL, '2019-09-30 01:59:28', NULL, NULL),
-(8, 'Developer', 'DEVELOPER', 95.000, 1, 24, NULL, NULL, '2020-06-16 21:40:17', NULL, NULL),
-(11, 'Manager', 'MANAGER', 85.000, 1, 2, NULL, NULL, '2021-02-11 10:41:55', NULL, NULL);
+(3, 'Member', 'MEMBER', 50.000, 1, NULL, 2, NULL, '2019-02-03 14:06:14', '2021-03-15 23:25:49', NULL),
+(8, 'Developer', 'DEVELOPER', 95.000, 1, 24, 2, NULL, '2020-06-16 21:40:17', '2021-03-15 23:25:40', NULL),
+(11, 'Manager', 'MANAGER', 85.000, 1, 2, NULL, NULL, '2021-02-14 22:10:52', NULL, NULL),
+(12, 'Borrower', 'BORROWER', 50.000, 1, 2, NULL, NULL, '2021-02-14 22:11:58', NULL, NULL),
+(13, 'Investor', 'INVESTOR', 50.000, 1, 2, NULL, NULL, '2021-02-14 22:12:21', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1124,7 +1279,7 @@ CREATE TABLE `sphp_useruserdevice` (
   `UserID` int(11) NOT NULL,
   `UserDeviceID` int(11) NOT NULL,
   `UserUserDeviceTimeActiveLast` datetime DEFAULT NULL,
-  `UserUserDeviceIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `UserUserDeviceIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -1153,8 +1308,8 @@ CREATE TABLE `sphp_useruserdevicenotification` (
   `UserUserDeviceNotificationID` int(11) NOT NULL,
   `UserUserDeviceID` int(11) NOT NULL,
   `NotificationID` int(11) NOT NULL,
-  `UserUserDeviceNotificationIsRead` tinyint(1) NOT NULL DEFAULT 0,
-  `UserUserDeviceNotificationIsActive` tinyint(1) NOT NULL DEFAULT 0,
+  `UserUserDeviceNotificationIsRead` tinyint(1) NOT NULL DEFAULT '0',
+  `UserUserDeviceNotificationIsActive` tinyint(1) NOT NULL DEFAULT '0',
   `UserIDInserted` int(11) DEFAULT NULL,
   `UserIDUpdated` int(11) DEFAULT NULL,
   `UserIDLocked` int(11) DEFAULT NULL,
@@ -1187,21 +1342,55 @@ CREATE TABLE `sphp_userusergroup` (
 --
 
 INSERT INTO `sphp_userusergroup` (`UserUserGroupID`, `UserID`, `UserGroupID`, `UserUserGroupIsActive`, `UserIDInserted`, `UserIDUpdated`, `UserIDLocked`, `TimeInserted`, `TimeUpdated`, `TimeLocked`) VALUES
-(1, 1, 1, 1, NULL, NULL, NULL, '2019-02-11 10:57:35', NULL, NULL),
 (2, 2, 2, 1, 24, NULL, NULL, '2019-10-23 18:51:03', NULL, NULL),
-(3, 3, 3, 1, 2, NULL, NULL, '2019-02-10 08:55:35', NULL, NULL),
 (4, 14, 5, 1, 2, NULL, NULL, '2021-01-24 12:36:55', NULL, NULL),
 (5, 13, 11, 1, 2, NULL, NULL, '2021-01-25 14:10:24', NULL, NULL),
 (6, 13, 5, 1, 2, NULL, NULL, '2021-01-25 14:10:24', NULL, NULL),
 (7, 987, 5, 1, 2, NULL, NULL, '2021-01-25 14:32:29', NULL, NULL),
 (8, 8, 2, 1, 2, NULL, NULL, '2021-01-25 14:33:57', NULL, NULL),
-(10, 899, 11, 1, 2, NULL, NULL, '2021-02-11 10:42:11', NULL, NULL),
-(11, 898, 2, 1, 2, NULL, NULL, '2021-02-11 12:22:55', NULL, NULL),
-(12, 898, 8, 1, 2, NULL, NULL, '2021-02-11 12:22:55', NULL, NULL);
+(9, 899, 8, 1, 2, NULL, NULL, '2021-02-13 20:11:00', NULL, NULL),
+(10, 900, 11, 1, 2, NULL, NULL, '2021-02-14 22:14:13', NULL, NULL),
+(11, 898, 13, 1, 2, NULL, NULL, '2021-03-15 22:58:28', NULL, NULL),
+(12, 901, 12, 1, 2, NULL, NULL, '2021-03-15 23:00:04', NULL, NULL),
+(13, 1, 12, 1, 2, NULL, NULL, '2021-03-15 23:22:51', NULL, NULL),
+(14, 3, 13, 1, 2, NULL, NULL, '2021-03-15 23:23:11', NULL, NULL),
+(15, 902, 11, 1, 2, NULL, NULL, '2021-03-17 01:27:16', NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `ims_invest`
+--
+ALTER TABLE `ims_invest`
+  ADD PRIMARY KEY (`InvestID`),
+  ADD KEY `InvestSchemeID` (`InvestSchemeSettingsID`),
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `InvestDate` (`InvestDate`),
+  ADD KEY `InvestIsActive` (`InvestIsActive`);
+
+--
+-- Indexes for table `ims_investschemesettings`
+--
+ALTER TABLE `ims_investschemesettings`
+  ADD PRIMARY KEY (`InvestSchemeSettingsID`),
+  ADD KEY `InvestSchemeSettingsName` (`InvestSchemeSettingsName`),
+  ADD KEY `InvestSchemeSettingsDay` (`InvestSchemeSettingsDay`),
+  ADD KEY `InvestSchemeSettingsAmount` (`InvestSchemeSettingsAmount`),
+  ADD KEY `InvestSchemeSettingsPayPerInstallment` (`InvestSchemeSettingsPayPerInstallment`),
+  ADD KEY `InvestSchemeSettingsTotalInstallment` (`InvestSchemeSettingsTotalInstallment`),
+  ADD KEY `InvestSchemeSettingsReturnAmount` (`InvestSchemeSettingsReturnAmount`);
+
+--
+-- Indexes for table `ims_investtransaction`
+--
+ALTER TABLE `ims_investtransaction`
+  ADD PRIMARY KEY (`InvestTransactionID`),
+  ADD KEY `InvestID` (`InvestID`),
+  ADD KEY `InvestTransactionPayableDate` (`InvestTransactionPayableDate`),
+  ADD KEY `InvestTransactionPaidDate` (`InvestTransactionPaidDate`),
+  ADD KEY `InvestTransactionIsPaid` (`InvestTransactionIsPaid`);
 
 --
 -- Indexes for table `ims_loan`
@@ -1440,6 +1629,24 @@ ALTER TABLE `sphp_userusergroup`
 --
 
 --
+-- AUTO_INCREMENT for table `ims_invest`
+--
+ALTER TABLE `ims_invest`
+  MODIFY `InvestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ims_investschemesettings`
+--
+ALTER TABLE `ims_investschemesettings`
+  MODIFY `InvestSchemeSettingsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ims_investtransaction`
+--
+ALTER TABLE `ims_investtransaction`
+  MODIFY `InvestTransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
 -- AUTO_INCREMENT for table `ims_loan`
 --
 ALTER TABLE `ims_loan`
@@ -1557,7 +1764,7 @@ ALTER TABLE `sphp_system_contentitemusergroup`
 -- AUTO_INCREMENT for table `sphp_user`
 --
 ALTER TABLE `sphp_user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=900;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=903;
 
 --
 -- AUTO_INCREMENT for table `sphp_userdevice`
@@ -1569,7 +1776,7 @@ ALTER TABLE `sphp_userdevice`
 -- AUTO_INCREMENT for table `sphp_usergroup`
 --
 ALTER TABLE `sphp_usergroup`
-  MODIFY `UserGroupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `UserGroupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `sphp_useruserdevice`
@@ -1587,7 +1794,7 @@ ALTER TABLE `sphp_useruserdevicenotification`
 -- AUTO_INCREMENT for table `sphp_userusergroup`
 --
 ALTER TABLE `sphp_userusergroup`
-  MODIFY `UserUserGroupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `UserUserGroupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

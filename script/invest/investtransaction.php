@@ -2,36 +2,21 @@
 namespace sPHP;
 
 #region Entity management common configuration
-$EM = new EntityManagement($Table[$Entity = "Loan"]);
+$EM = new EntityManagement($Table[$Entity = "LoanTransaction"]);
 //DebugDump($Table[$Entity]->Structure());
-
-$BorrowerUser = $Database->Query("
-								SELECT 			U.*,
-												@UserName := CONCAT(
-													U.UserNameFirst,
-													IF(U.UserNameMiddle > '', CONCAT(' ', U.UserNameMiddle), ''),
-													IF(U.UserNameLast > '', CONCAT(' ', U.UserNameLast), '')
-												) AS UserName,
-								
-												CONCAT(@UserName, ' [', U.UserPhoneMobile, ']') AS UserLookupCaption
-								FROM 			sphp_userusergroup AS UUG
-									LEFT JOIN 	sphp_user AS U ON U.UserID = UUG.UserID
-								WHERE 			UUG.UserGroupID = 12"
-							)[0];
 
 // DebugDump($User);
 $EM->ImportField([
 	new Database\Field("" . ($Field = "User") . "ID", "" . ($Column = "{$Field}SignInName") . "", null, $Table["{$Field}"], null),
-	new Database\Field("" . ($Field = "LoanScheme") . "ID", "" . ($Column = "{$Field}Name") . "", null, $Table["{$Field}"], null),
-	new Database\Field("{$Entity}" . ($Field = "Date") . "", "{$Field}"),
+	new Database\Field("" . ($Field = "Loan") . "ID", "" . ($Column = "{$Field}LoanIdentity") . "", null, $Table["{$Field}"], null),
+	new Database\Field("{$Entity}" . ($Field = "PayableDate") . "", "{$Field}"),
 	new Database\Field("{$Entity}Is" . ($Field = "Active") . "", "{$Field}"),
 	//new Database\Field("" . ($Field = "Listener") . "ID", "{$Field}", null, $Table["{$Field}"], "{$Field}Name"),
 ]);
 
 $EM->InputValidation([
-      new HTTP\InputValidation("UserID", null, VALIDATION_TYPE_INTEGER),
-      new HTTP\InputValidation("LoanSchemeID", null, VALIDATION_TYPE_INTEGER),
-	new HTTP\InputValidation("{$Entity}Date", true, null),
+    new HTTP\InputValidation("LoanID", null, VALIDATION_TYPE_INTEGER),
+	new HTTP\InputValidation("{$Entity}PayableDate", true, null),
 	new HTTP\InputValidation("{$Entity}IsActive", null, VALIDATION_TYPE_INTEGER),
 ]);
 
@@ -63,15 +48,16 @@ $EM->IntermediateEntity("xCategory, xEvent");
 $EM->DefaultFromSearchColumn("xTerminalID, xUserID, xCarrierID");
 
 $EM->ListColumn([
-    new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "SignInName", "Borrower", null, null),
-    new HTML\UI\Datagrid\Column("" . ($Caption = "LoanScheme") . "Name", "Scheme Name", null, null),
-    new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "Date") . "", "{$Caption}", FIELD_TYPE_SHORTDATE, null),
+	new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "SignInName", "Customer", null, null),
+	new HTML\UI\Datagrid\Column("" . ($Caption = "Loan") . "Identity", "Loan Number", null, null),
+    new HTML\UI\Datagrid\Column("" . ($Caption = "LoanScheme") . "Name", "{$Caption} Name", null, null),
+    new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "PayableDate") . "", "{$Caption}", FIELD_TYPE_SHORTDATE, null),
 	new HTML\UI\Datagrid\Column("{$Entity}Is" . ($Caption = "Active") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON),
 ]);
 
 $EM->Action([
 	//new HTML\UI\Datagrid\Action("{$Environment->IconURL()}{$Entity}" . strtolower($ActionEntity = "CommercialInvoice") . ".png", null, $Application->URL("{$Entity}/{$ActionEntity}"), "_blank", null, null, "Commercial invoice"),
-	new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Loan/LoanView", "btnSubmit"), "_blank", null, null, "View", null, null),
+	new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL($_POST["_Script"], "btnView"), null, null, null, "View", null, null),
 	new HTML\UI\Datagrid\Action("{$Environment->IconURL()}edit.png", null, $Application->URL($_POST["_Script"], "btnInput"), null, null, null, "Edit"),
 	$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Datagrid\Action("{$Environment->IconURL()}delete.png", null, $Application->URL($_POST["_Script"], "btnDelete"), null, "return confirm('Are you sure to remove the information?');", null, "Delete"):null,
 ]);
@@ -125,38 +111,9 @@ if(isset($_POST["btnInput"])){
 
 	if(isset($_POST["btnSubmit"])){
 		#region Custom code
-		$_POST["{$Entity}Date"] = $_POST["{$Entity}DateDate"] ? "{$_POST["{$Entity}DateDate"]} {$_POST["{$Entity}DateTime"]}:00" : null;
 		#endregion Custom code
-
+		DebugDump($_POST);
 		if($EM->Input()){
-
-			$LastLoanInfo = $Database->Query("
-												SELECT 			L.LoanID,
-																L.UserID,
-																LS.LoanSchemeDay,
-																L.LoanDate,
-																LS.LoanSchemeTotalInstallment
-
-												FROM			ims_loan AS L
-													LEFT JOIN	ims_loanscheme AS LS ON LS.LoanSchemeID = L.LoanSchemeID 
-												ORDER BY		L.LoanID DESC
-												LIMIT			1
-			")[0][0];
-			
-			$SecondaryTable = 'LoanTransaction';
-			$StartPoint = 1;
-			$date = date("Y-m-d", strtotime($LastLoanInfo['LoanDate']));
-
-			while($StartPoint<=$LastLoanInfo['LoanSchemeTotalInstallment']){
-				$date = strtotime($date);
-				$date = date("Y-m-d", strtotime("+{$LastLoanInfo['LoanSchemeDay']} day", $date));
-				$Table["{$SecondaryTable}"]->Put([ // Save information into database
-					($Field = "LoanID")=>$LastLoanInfo["LoanID"],
-					($Field = "{$SecondaryTable}IsActive")=>$_POST["{$Entity}IsActive"],
-					($Field = "LoanTransactionPayableDate")=>$date,
-				]);
-				$StartPoint++;
-			}
 
 			$Terminal->Redirect("{$_POST["_Referer"]}&SucceededAction=Input"); // Redirect to previous location
 		}
@@ -164,18 +121,11 @@ if(isset($_POST["btnInput"])){
 
 	$EM->LoadExistingData();
 	#region Custom code
-	if(isset($_POST["{$Entity}Date"]) && $_POST["{$Entity}Date"]){
-		$TaskDate = strtotime($_POST["{$Entity}Date"]);
-		$_POST["{$Entity}DateDate"] = date("Y-m-d", $TaskDate);
-		$_POST["{$Entity}DateTime"] = date("H:i", $TaskDate);
-	}
 
 	#endregion Custom code
 
 	$EM->InputUIHTML([
-        HTML\UI\Field(HTML\UI\Select("" . ($Caption = "User") . "ID", $BorrowerUser, null, "{$Caption}LookupCaption", null, null, null), "Borrower", true, null, $EM->FieldCaptionWidth()),
-        HTML\UI\Field(HTML\UI\Select("" . ($Caption = "LoanScheme") . "ID", $Table[$OptionEntity = "{$Caption}"]->Get("{$Table["{$OptionEntity}"]->Alias()}.{$OptionEntity}IsActive = 1", "{$OptionEntity}LookupCaption ASC"), null, "{$OptionEntity}LookupCaption", null, null, null), "Scheme Settings", true, null, $EM->FieldCaptionWidth()),
-		HTML\UI\Field(HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Date", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "Date", true, null, $EM->FieldCaptionWidth()),
+		HTML\UI\Field(HTML\UI\Input("{$Entity}PayableDate" . ($Caption = "") . "", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "Date", true, null, $EM->FieldCaptionWidth()),
 		HTML\UI\Field(HTML\UI\RadioGroup("{$Entity}Is" . ($Caption = "Active") . "", [new HTML\UI\Radio(1, "Yes"), new HTML\UI\Radio(0, "No")]), "{$Caption}", true, null, $EM->FieldCaptionWidth()),
 	]);
 
@@ -187,34 +137,34 @@ if(isset($_POST["btnInput"])){
 $EM->SearchSQL([
 	"1 = 1", // Custom fixed search condition
 
-	// $User->UserGroupIdentifierHighest() == "User" ? "D.UserIDInserted = {$User->ID()}" : null,
-	// $User->UserGroupIdentifierHighest() == "HEAD" ? 
-	// 	"D.UserIDInserted IN (
-	// 		SELECT			SUD2.UserID
-	// 		FROM			spm_userdepartment AS SUD
-	// 				LEFT JOIN	sphp_user AS U ON U.UserID = SUD.UserID
-	// 				LEFT JOIN	spm_userdepartment AS SUD2 ON SUD2.DepartmentID = SUD.DepartmentID
-	// 		WHERE			U.UserID = {$User->ID()}
-	// 	)" : null,
-	// $User->UserGroupIdentifierHighest() == "DEVELOPER" ? 
-	// 	"D.UserIDInserted IN (
-	// 		SELECT			SUG.UserID
-	// 		FROM			sphp_userusergroup AS SUG
-	// 			LEFT JOIN	sphp_user AS U ON U.UserID = SUG.UserID
-	// 		WHERE			U.UserID = {$User->ID()}
-	// 	)" : null,
+	$User->UserGroupIdentifierHighest() == "User" ? "D.UserIDInserted = {$User->ID()}" : null,
+	$User->UserGroupIdentifierHighest() == "HEAD" ? 
+		"D.UserIDInserted IN (
+			SELECT			SUD2.UserID
+			FROM			spm_userdepartment AS SUD
+					LEFT JOIN	sphp_user AS U ON U.UserID = SUD.UserID
+					LEFT JOIN	spm_userdepartment AS SUD2 ON SUD2.DepartmentID = SUD.DepartmentID
+			WHERE			U.UserID = {$User->ID()}
+		)" : null,
+	$User->UserGroupIdentifierHighest() == "DEVELOPER" ? 
+		"D.UserIDInserted IN (
+			SELECT			SUG.UserID
+			FROM			sphp_userusergroup AS SUG
+				LEFT JOIN	sphp_user AS U ON U.UserID = SUG.UserID
+			WHERE			U.UserID = {$User->ID()}
+		)" : null,
 
-	SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "UserID") . "", SetVariable($Column)) ? "{$Table["{$Entity}"]->Alias()}.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
+	SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "User") . "", SetVariable($Column)) ? "{$Table["{$Entity}"]->Alias()}.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
 	SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "{$Entity}IsActive") . "", SetVariable($Column, "")) !== "" ? "{$Table["{$Entity}"]->Alias()}.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
-	SetVariable("{$EM->SearchInputPrefix()}" . ($Column = "{$Entity}DateAssignFrom") . "", SetVariable($Column, "")) ? "{$Table["{$Entity}"]->Alias()}.{$Entity}Date >= '{$Database->Escape("{$_POST["{$EM->SearchInputPrefix()}{$Column}"]}")} {$Database->Escape("{$_POST["{$EM->SearchInputPrefix()}{$Column}Time"]}")}:00'" : null,
-	SetVariable("{$EM->SearchInputPrefix()}" . ($Column = "{$Entity}DateAssignTo") . "", SetVariable($Column, "")) ? "{$Table["{$Entity}"]->Alias()}.{$Entity}Date <= '{$Database->Escape($_POST["{$EM->SearchInputPrefix()}{$Column}"])} 23:59:59'" : null,
+	SetVariable("{$EM->SearchInputPrefix()}" . ($Column = "{$Entity}DateAssignFrom") . "", SetVariable($Column, "")) ? "{$Table["{$Entity}"]->Alias()}.{$Entity}PayableDate >= '{$Database->Escape("{$_POST["{$EM->SearchInputPrefix()}{$Column}"]}")} {$Database->Escape("{$_POST["{$EM->SearchInputPrefix()}{$Column}Time"]}")}:00'" : null,
+	SetVariable("{$EM->SearchInputPrefix()}" . ($Column = "{$Entity}DateAssignTo") . "", SetVariable($Column, "")) ? "{$Table["{$Entity}"]->Alias()}.{$Entity}PayableDate <= '{$Database->Escape($_POST["{$EM->SearchInputPrefix()}{$Column}"])} 23:59:59'" : null,
 
 	// SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "UserIDInserted") . "", SetVariable($Column)) ? "D.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
 
 ]);
 
 $EM->SearchUIHTML([
-	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $BorrowerUser , new Option(), "{$Caption}LookupCaption", null, null, null), "Borrower", null, null),
+	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $Table[$OptionEntity = "{$Caption}"]->Get(null, "" . ($OptionEntityOrderBy = "{$OptionEntity}LookupCaption") . " ASC"), new Option(), "{$OptionEntityOrderBy}"), "{$Caption}", null, null),
 	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}{$Entity}Is" . ($Caption = "Active") . "", [new Option(), new Option(0, "No"), new Option(1, "Yes")]), "{$Caption}", null, true),
 	HTML\UI\Field(
 		HTML\UI\Input("{$EM->SearchInputPrefix()}{$Entity}Date" . ($Caption = "Assign") . "From", null, null, null, INPUT_TYPE_DATE) .
@@ -230,7 +180,7 @@ if(isset($_POST["btnExport"])){
 	foreach($Recordset as $RecordIndex => $Record)$CSVRow[] = [
 		($Field = "#") 					=> $RecordIndex + 1, 
 		($Field = "Task") 				=> $Record["TaskName"], 
-		($Field = "Daily Report") 		=> $Record["DailyTaskReport"], 
+		($Field = "Daily Report") 		      => $Record["DailyTaskReport"], 
 		($Field = "Comment") 			      => $Record["DailyTaskComments"], 
 		($Field = "Remark") 			      => $Record["DailyTaskRemarks"], 
 		($Field = "Date") 				=> $Record["DailyTaskDateAssign"], 
