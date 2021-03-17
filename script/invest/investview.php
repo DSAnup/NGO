@@ -54,6 +54,9 @@ if(isset($_POST["btnInput"])){
 
 	if(isset($_POST["btnSubmit"])){
 		#region Custom code
+		$_POST["{$Entity}PaidDate"] = "{$_POST["{$Entity}PaidDateDate"]} {$_POST["{$Entity}PaidDateTime"]}:00";
+
+		// DebugDump($_POST);
 		#endregion Custom code
 		if($EM->Input()){
 
@@ -67,10 +70,16 @@ if(isset($_POST["btnInput"])){
 	$EM->LoadExistingData();
 	#region Custom code
 
+	if(isset($_POST["{$Entity}PaidDate"]) && $_POST["{$Entity}PaidDate"]){
+		$PaidDate = strtotime($_POST["{$Entity}PaidDate"]);
+		$_POST["{$Entity}PaidDateDate"] = date("Y-m-d", $PaidDate);
+		$_POST["{$Entity}PaidDateTime"] = date("H:i", $PaidDate);
+	}
+
 	#endregion Custom code
 
 	$EM->InputUIHTML([
-		HTML\UI\Field(HTML\UI\Input("{$Entity}PaidDate" . ($Caption = "") . "", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "Date", true, null, $EM->FieldCaptionWidth()),
+		HTML\UI\Field(HTML\UI\Input("{$Entity}PaidDate" . ($Caption = "") . "Date", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}PaidDate" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "PaidDate", true, null, $EM->FieldCaptionWidth()),
 		HTML\UI\Field(HTML\UI\RadioGroup("{$Entity}Is" . ($Caption = "Paid") . "", [new HTML\UI\Radio(1, "Yes"), new HTML\UI\Radio(0, "No")]), "{$Caption}", true, null, $EM->FieldCaptionWidth()),
 	]);
 

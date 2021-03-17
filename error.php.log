@@ -1,1 +1,21 @@
 [17-Mar-2021 01:00:28 Asia/Dhaka] User error: Undefined variable: OptionEntityOrderBy in C:\xampp\htdocs\ngo\script\loan\loan.php on line 217
+[18-Mar-2021 00:13:49 Asia/Dhaka] User error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'IIS.InvestSchemeSettingsPayPerInstallment' in 'field list' in C:\xampp\htdocs\sPHP\library\object\database.php on line 224
+[18-Mar-2021 00:15:37 Asia/Dhaka] User error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'IT.UserID' in 'on clause' in C:\xampp\htdocs\sPHP\library\object\database.php on line 224
+[18-Mar-2021 00:16:53 Asia/Dhaka] User error: Undefined index: InvestTransactionPayableDate in C:\xampp\htdocs\ngo\script\management\report\investreport.php on line 84
+[18-Mar-2021 00:38:01 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:39:11 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:39:29 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:40:20 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:40:32 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:43:00 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:44:33 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:47:42 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:48:17 Asia/Dhaka] User error: Undefined index: InvestTransactionPaidDate in C:\xampp\htdocs\ngo\script\invest\investview.php on line 57
+[18-Mar-2021 00:55:25 Asia/Dhaka] PHP Parse error:  syntax error, unexpected '.' in C:\xampp\htdocs\ngo\script\management\report\investreport.php on line 23
+[18-Mar-2021 00:55:25 Asia/Dhaka] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[18-Mar-2021 00:59:09 Asia/Dhaka] User error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')
+		ORDER BY		IT.InvestTransactionPayableDate ASC' at line 18 in C:\xampp\htdocs\sPHP\library\object\database.php on line 224
+[18-Mar-2021 01:00:08 Asia/Dhaka] User error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')
+		ORDER BY		IT.InvestTransactionPayableDate ASC' at line 18 in C:\xampp\htdocs\sPHP\library\object\database.php on line 224
+[18-Mar-2021 01:00:31 Asia/Dhaka] User error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')
+		ORDER BY		IT.InvestTransactionPayableDate ASC' at line 18 in C:\xampp\htdocs\sPHP\library\object\database.php on line 224
