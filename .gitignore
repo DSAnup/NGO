@@ -1,3 +1,7 @@
 #ignore session folder
 
 session/
+
+#ignore all logs
+
+*.log

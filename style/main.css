@@ -92,7 +92,7 @@ button[class |= 'Print']{border: 1px Silver solid; background-color: #DDDDDD; pa
 button[class |= 'Print']:hover{background-color: #FFFFFF;}
 button[class |= 'Print'] > img{filter: none;}
 
-button > .Icon{margin: 0; height: 20px !important; filter: invert(100%);}
+button > .Icon{margin: 0; height: 20px !important;}
 button > .Caption > .Icon{margin-right: 10px; height: 22px; padding-top: 4px; padding-bottom: 4px;}
 
 .RadioGroup > .Radio > label:hover{background-color: #F7DD17; color: Black;}
@@ -179,7 +179,8 @@ form > .Content > .FieldDescription{font-size: inherit;}
 .ReportTable > tbody > tr > .Number{text-align: right; white-space: nowrap;}
 .ReportTable > tfoot{background-color: transparent;}
 .ReportTable > tfoot > tr{border-bottom: 1px Silver solid;}
-.ReportTable > tfoot > tr > td{border-width: 0; padding: 15px;}
+/* .ReportTable > tfoot > tr > td{border-width: 0; padding: 15px;} */
+.ReportTable > tfoot > tr > td{border-width: 0; padding: 0; padding-top: 5px; padding-bottom: 5px; color: Silver; text-transform: uppercase;}
 .ReportTable > thead > .Title > th > .Caption > .Icon{display: none;}
 
 .Datagrid > .Content > .ReportTable > thead{border-width: 0;}

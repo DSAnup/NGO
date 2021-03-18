@@ -8,7 +8,7 @@ print "
 		"
 
 			" . HTML\UI\Field(
-				HTML\UI\Input("InvestTransactionPayableDate" . ($Caption = "") . "From", $Configuration["InputDateWidth"], date("Y-m-d" , strtotime('-7 days')), null, INPUT_TYPE_DATE) .
+				HTML\UI\Input("InvestTransactionPayableDate" . ($Caption = "") . "From", $Configuration["InputDateWidth"], date("Y-m-d" , strtotime('-30 days')), null, INPUT_TYPE_DATE) .
 				HTML\UI\Input("InvestTransactionPayableDatetime" . ($Caption = "") . "From", $Configuration["InputTimeWidth"], "00:00", null, INPUT_TYPE_TIME),
 				"{$Caption}From", null, true
 			) . "
@@ -19,10 +19,10 @@ print "
 				"{$Caption}To", null, true
 			) . "
             " . HTML\UI\Field(
-				HTML\UI\Select("InvestTransactionIs" . ($Caption = "Paid") . "", [new Option(), new Option(0, "No"), new Option(1, "Yes")]), "{$Caption}", null, true
+				HTML\UI\Select("InvestTransactionIs" . ($Caption = "Paid") . "", [new Option(0, "No"), new Option(1, "Yes")]), "{$Caption}", null, true
 			) . "
 			" . HTML\UI\Button("" . ($Caption = "") . "", BUTTON_TYPE_SUBMIT, "btnSubmit", null, ["OnClick"=>"LoadingPopup();", ], null, null, null, "{$Caption}", "{$Environment->IconURL()}search.png") . "
-			" . HTML\UI\Button("" . ($Caption = "Download") . "", BUTTON_TYPE_SUBMIT, "btnDownload", null, null, null, "{$Caption}", null, "{$Caption}", "{$Environment->IconURL()}download.png") . "
+			" . HTML\UI\Button("" . ($Caption = "") . "", BUTTON_TYPE_SUBMIT, "btnDownload", null, null, null, "{$Caption}", null, "{$Caption}", "{$Environment->IconURL()}download.png") . "
 			" . HTML\UI\Button("" . ($Caption = "") . "", null, null, null, "myFunction()", null, "Print", null, "Print", "{$Environment->IconURL()}print.png") . "
 		",
 		"", // Set to empty to suppress Submit button
@@ -52,12 +52,11 @@ $Recordset = $Database->Query($SQL = "
                         ISS.InvestSchemeSettingsPayPerInstallment AS PerInstallment
 
 		FROM			ims_investtransaction AS IT
-            LEFT JOIN	sphp_user AS U ON U.UserID = IT.UserIDInserted
             LEFT JOIN	ims_invest AS I ON I.InvestID = IT.InvestID
+			LEFT JOIN	sphp_user AS U ON U.UserID = I.UserID
 			LEFT JOIN	ims_investschemesettings AS ISS ON ISS.InvestSchemeSettingsID = I.InvestSchemeSettingsID
 		WHERE			{$WhereClause}
 		ORDER BY		IT.InvestTransactionPayableDate ASC
-
 ");
 // DebugDump("<pre>{$SQL}</pre>");
 // DebugDump($Recordset[0]);
@@ -66,6 +65,14 @@ $PrintHTML = null;
 
 if(isset($Recordset[0])){
 
+	$TotalAmount = $Database->Query($SQL = "
+			SELECT			SUM(ISS.InvestSchemeSettingsPayPerInstallment) AS TOTALAMOUNT
+			FROM			ims_investtransaction AS IT
+				LEFT JOIN	ims_invest AS I ON I.InvestID = IT.InvestID
+				LEFT JOIN	ims_investschemesettings AS ISS ON ISS.InvestSchemeSettingsID = I.InvestSchemeSettingsID
+			WHERE			{$WhereClause};
+	");
+	
 	$RecordNumber = 0;
 	$HTML[] = "
 					<table class=\"ReportTable\">
@@ -76,7 +83,7 @@ if(isset($Recordset[0])){
 							<th>Invest Creation</th>
 							<th>Payable Date</th>
 							<th>Paid Date</th>
-							<th>Installment Amount</th>
+							<th>Amount</th>
 						</thead>
 
 						<tbody>
@@ -93,30 +100,28 @@ if(isset($Recordset[0])){
                         <td class=\"AlignCenter\"><span class=\"FieldCaption\">Invest Creation</span>".date("M d, Y", strtotime($Data['InvestDate']))."</td>
                         <td class=\"AlignCenter\"><span class=\"FieldCaption\">Payable Date</span>".date("M d, Y", strtotime($Data['Payable']))."</td>
                         <td class=\"AlignCenter\"><span class=\"FieldCaption\">Paid Date</span>{$Data["Paid"]}</td>
-						<td class=\"AlignCenter\"><span class=\"FieldCaption\">Installment Amount</span>{$Data["PerInstallment"]}</td>
+						<td class=\"AlignCenter\"><span class=\"FieldCaption\">Amount</span>{$Data["PerInstallment"]}</td>
 					</tr>
 				";
 
-		// $CSVRow[] = [
-		// 	($Field = "#") 					=> $RecordNumber, 
-		// 	($Field = "Task") 				=> $Data["TaskName"], 
-		// 	($Field = "Source") 			=> $Data["SourceName"], 
-		// 	($Field = "Project") 			=> $Data["ProjectName"], 
-		// 	($Field = "Priority") 			=> $Data["PriorityName"], 
-		// 	($Field = "Status") 			=> $Data["StatusName"], 
-		// 	($Field = "Acknowledgement") 	=> $Data["AcknowledgeName"], 
-		// 	($Field = "Type") 				=> $Data["TypeName"], 
-		// 	($Field = "Reference") 			=> $Data["TaskReference"],
-		// 	($Field = "Reference") 			=> $Data["TaskReference"],
-		// 	($Field = "Accessibility") 		=> $Data["TaskAccessibility"],
-		// 	($Field = "Comment") 			=> $Data["TaskComment"],
-		// 	($Field = "Assign Date") 		=> $Data["InvestTransactionPayableDate"], 
-		// 	($Field = "Expected Date") 		=> $Data["TaskDateExpected"], 
-		// 	($Field = "Delivery Date") 		=> $Data["TaskDateDelivery"],  
-		// ];
+		$CSVRow[] = [
+			($Field = "#") 						=> $RecordNumber, 
+			($Field = "Identity") 				=> $Data["InvestIdentity"], 
+			($Field = "Investor") 				=> $Data["Client"], 
+			($Field = "Invest Date") 			=> $Data["InvestDate"], 
+			($Field = "Payable Date") 			=> $Data["Payable"], 
+			($Field = "Paid Date") 				=> $Data["Paid"], 
+			($Field = "Per Installment") 		=> $Data["PerInstallment"], 
+		];
 	}
 	$HTML[] = "
 				</tbody>
+				<tfoot>
+					<tr>
+						<td class=\"Alignleft\" colspan=\"6\">Total</td>
+						<td class=\"AlignCenter\">{$TotalAmount[0][0]['TOTALAMOUNT']}</td>
+					</tr>
+				</tfoot>
 				</table>
 			";
 
@@ -124,9 +129,9 @@ if(isset($Recordset[0])){
 			" . implode(null, $HTML) . "
 
 		";
-	// if(isset($_POST["btnDownload"])){
-	// 	$Terminal->LetDownload($CSVRow, null, "Report " . date("Y-m-d H-i-s") . " " . rand(0, 9999) . ".csv"); 
-	// }
+	if(isset($_POST["btnDownload"])){
+		$Terminal->LetDownload($CSVRow, null, "Invest Report " . date("Y-m-d H-i-s") . " " . rand(0, 9999) . ".csv"); 
+	}
 	
 }
 
