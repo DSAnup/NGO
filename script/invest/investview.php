@@ -23,18 +23,23 @@ $RecoredSet = $Database->Query("
 								SELECT 			IT.InvestTransactionPayableDate,
 												IT.InvestTransactionIsPaid,
 												IT.InvestTransactionPaidDate,
-												IT.InvestTransactionID,
-												CONCAT(I.InvestPrefix, '_', I.InvestID) AS InvestIdentity,
-												U.UserSignInName AS Customer,
-												ISS.InvestSchemeSettingsPayPerInstallment AS PerInstallment
+												IT.InvestTransactionID
 								FROM			ims_investtransaction AS IT
 									LEFT JOIN 	ims_invest AS I ON I.InvestID = IT.InvestID
-									LEFT JOIN	sphp_user AS U ON U.UserID = I.UserID
-									LEFT JOIN	ims_investschemesettings AS ISS ON ISS.InvestSchemeSettingsID = I.InvestSchemeSettingsID
 								WHERE				{$WhereClause}
 								ORDER BY 			IT.InvestTransactionID ASC
-								LIMIT			" . ((SetVariable("Page", 1) - 1) * SetVariable("RecordCountPerPage", 20)) . ", {$_POST["RecordCountPerPage"]}		
+								LIMIT			" . ((SetVariable("Page", 1) - 1) * SetVariable("RecordCountPerPage", 100)) . ", {$_POST["RecordCountPerPage"]};
+								
+								SELECT 			CONCAT(I.InvestPrefix, '_', I.InvestID) AS InvestIdentity,
+												U.UserSignInName AS Customer,
+												I.InvestDate,
+												ISS.InvestSchemeSettingsPayPerInstallment AS PerInstallment
+								FROM			ims_invest AS I
+									LEFT JOIN	sphp_user AS U ON U.UserID = I.UserID
+									LEFT JOIN	ims_investschemesettings AS ISS ON ISS.InvestSchemeSettingsID = I.InvestSchemeSettingsID
+								WHERE			I.InvestID = {$_POST['InvestID']};
 ");
+
 $EM = new EntityManagement($Table[$Entity = "InvestTransaction"]);
 $EM->ValidateInput(function($Entity, $Database, $Table, $PrimaryKey, $ID){
 	$Result = true;
@@ -48,7 +53,7 @@ $EM->BeforeInput(function($Entity, $Record){
 
 	return true;
 });
-// DebugDump($RecoredSet[1]);
+// DebugDump($RecoredSet[2][0]);
 if(isset($_POST["btnInput"])){
 	$NewRecordMode = isset($_POST["{$Entity}ID"]) && intval($_POST["{$Entity}ID"]) ? false : true;
 
@@ -94,7 +99,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "PaidDate") . "", "Paid Date", FIELD_TYPE_SHORTDATE, null),
 		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "IsPaid") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON, null),
 	],
-	"Checkout",
+	"View",
 	$_POST["RecordCountPerPage"],
 	"{$Entity}ID",
 	[
@@ -117,8 +122,11 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	"
 	,
 	"
-		" . HTML\UI\Input("Keyword", null, null, null, null, null, "Search") . "
-		<input type=\"hidden\" name=\"Page\" value=\"1\">
+		<h4 class=\"AlignCenter\">Invest No : " . $RecoredSet[2][0]["InvestIdentity"] . "</h4>	
+		<h5 class=\"AlignCenter\">Name : " . $RecoredSet[2][0]["Customer"] . "</h5>
+		<h5 class=\"AlignCenter\">Date : " . $RecoredSet[2][0]["InvestDate"] . "</h5>
+		<h5 class=\"AlignCenter\">Per Installment : " . $RecoredSet[2][0]["PerInstallment"] . "</h5>
+		<h5 class=\"AlignRight\">" . HTML\UI\Button("" . ($Caption = "") . "", null, null, null, "myFunction()", null, null, null, "Print", "{$Environment->IconURL()}print.png") . "</h5>
 	"
 	,
 	null,

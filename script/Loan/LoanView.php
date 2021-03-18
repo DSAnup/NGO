@@ -23,17 +23,21 @@ $RecoredSet = $Database->Query("
 								SELECT 			LT.LoanTransactionPayableDate,
 												LT.LoanTransactionIsPaid,
 												LT.LoanTransactionPaidDate,
-												LT.LoanTransactionID,
-												CONCAT(L.LoanPrefix, '_', L.LoanID) AS LoanIdentity,
-												U.UserSignInName AS Customer,
-												LS.LoanSchemePayPerInstallment AS PerInstallment
+												LT.LoanTransactionID
 								FROM			ims_loantransaction AS LT
 									LEFT JOIN 	ims_loan AS L ON L.LoanID = LT.LoanID
-									LEFT JOIN	sphp_user AS U ON U.UserID = L.UserID
-									LEFT JOIN	ims_loanscheme AS LS ON LS.LoanSchemeID = L.LoanSchemeID
 								WHERE				{$WhereClause}
 								ORDER BY 			LT.LoanTransactionID ASC
-								LIMIT			" . ((SetVariable("Page", 1) - 1) * SetVariable("RecordCountPerPage", 20)) . ", {$_POST["RecordCountPerPage"]}		
+								LIMIT			" . ((SetVariable("Page", 1) - 1) * SetVariable("RecordCountPerPage", 100)) . ", {$_POST["RecordCountPerPage"]};		
+
+								SELECT 			CONCAT(L.LoanPrefix, '_', L.LoanID) AS LoanIdentity,
+												U.UserSignInName AS Customer,
+												L.LoanDate,
+												LS.LoanSchemePayPerInstallment AS PerInstallment
+								FROM			ims_loan AS L
+									LEFT JOIN	sphp_user AS U ON U.UserID = L.UserID
+									LEFT JOIN	ims_loanscheme AS LS ON LS.LoanSchemeID = L.LoanSchemeID
+								WHERE			L.LoanID = {$_POST['LoanID']};
 ");
 $EM = new EntityManagement($Table[$Entity = "LoanTransaction"]);
 $EM->ValidateInput(function($Entity, $Database, $Table, $PrimaryKey, $ID){
@@ -90,7 +94,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "PaidDate") . "", "Paid Date", FIELD_TYPE_SHORTDATE, null),
 		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "IsPaid") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON, null),
 	],
-	"Checkout",
+	"View",
 	$_POST["RecordCountPerPage"],
 	"{$Entity}ID",
 	[
@@ -113,8 +117,11 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	"
 	,
 	"
-		" . HTML\UI\Input("Keyword", null, null, null, null, null, "Search") . "
-		<input type=\"hidden\" name=\"Page\" value=\"1\">
+		<h4 class=\"AlignCenter\">Loan No : " . $RecoredSet[2][0]["LoanIdentity"] . "</h4>	
+		<h5 class=\"AlignCenter\">Name : " . $RecoredSet[2][0]["Customer"] . "</h5>
+		<h5 class=\"AlignCenter\">Date : " . $RecoredSet[2][0]["LoanDate"] . "</h5>
+		<h5 class=\"AlignCenter\">Per Installment : " . $RecoredSet[2][0]["PerInstallment"] . "</h5>
+		<h5 class=\"AlignRight\">" . HTML\UI\Button("" . ($Caption = "") . "", null, null, null, "myFunction()", null, null, null, "Print", "{$Environment->IconURL()}print.png") . "</h5>
 	"
 	,
 	null,
