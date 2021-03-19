@@ -44,9 +44,10 @@ $WhereClause = implode(" AND ", array_filter([
 
 $Recordset = $Database->Query($SQL = "
 		SELECT			IT.LoanTransactionPayableDate AS Payable,
-                        IT.LoanTransactionPaidDate AS Paid,
+                        IF(IT.LoanTransactionIsPaid = 1, IT.LoanTransactionPaidDate, '') AS Paid,
                         IT.LoanTransactionIsPaid,
                         U.UserSignInName AS Client,
+						U.UserPhoneMobile,
                         I.LoanDate,
                         CONCAT(I.LoanPrefix, '_', I.LoanID) AS LoanIdentity,
                         ISS.LoanSchemePayPerInstallment AS PerInstallment
@@ -78,9 +79,10 @@ if(isset($Recordset[0])){
 					<table class=\"ReportTable\">
 						<thead>
 							<th class=\"AlignRight\">Sl</th>
-							<th>Loan No</th>
+							<th>Identity</th>
 							<th>Borrower</th>
-							<th>Loan Creation</th>
+							<th>Mobile</th>
+							<th>Create</th>
 							<th>Payable Date</th>
 							<th>Paid Date</th>
 							<th>Amount</th>
@@ -95,11 +97,12 @@ if(isset($Recordset[0])){
 		$HTML[] = "
 					<tr>
 						<td class=\"AlignRight\">" . $RecordNumber . "</td>
-                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Loan No</span>{$Data["LoanIdentity"]}</td>
+                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Identity</span>{$Data["LoanIdentity"]}</td>
                         <td class=\"AlignCenter\"><span class=\"FieldCaption\">Borrower</span>{$Data["Client"]}</td>
-                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Loan Creation</span>".date("M d, Y", strtotime($Data['LoanDate']))."</td>
-                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Payable Date</span>".date("M d, Y", strtotime($Data['Payable']))."</td>
-                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Paid Date</span>{$Data["Paid"]}</td>
+						<td class=\"AlignCenter\"><span class=\"FieldCaption\">Mobile</span>{$Data["UserPhoneMobile"]}</td>
+                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Create</span>".date("M d, Y", strtotime($Data['LoanDate']))."</td>
+                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Payable</span>".date("M d, Y", strtotime($Data['Payable']))."</td>
+                        <td class=\"AlignCenter\"><span class=\"FieldCaption\">Paid</span>{$Data["Paid"]}</td>
 						<td class=\"AlignCenter\"><span class=\"FieldCaption\">Amount</span>{$Data["PerInstallment"]}</td>
 					</tr>
 				";
@@ -108,7 +111,7 @@ if(isset($Recordset[0])){
 			($Field = "#") 						=> $RecordNumber, 
 			($Field = "Identity") 				=> $Data["LoanIdentity"], 
 			($Field = "Borrower") 				=> $Data["Client"], 
-			($Field = "Loan Date") 			=> $Data["LoanDate"], 
+			($Field = "Loan Date") 				=> $Data["LoanDate"], 
 			($Field = "Payable Date") 			=> $Data["Payable"], 
 			($Field = "Paid Date") 				=> $Data["Paid"], 
 			($Field = "Per Installment") 		=> $Data["PerInstallment"], 
@@ -118,7 +121,7 @@ if(isset($Recordset[0])){
 				</tbody>
 				<tfoot>
 					<tr>
-						<td class=\"Alignleft\" colspan=\"6\">Total</td>
+						<td class=\"Alignleft\" colspan=\"7\">Total</td>
 						<td class=\"AlignCenter\">{$TotalAmount[0][0]['TOTALAMOUNT']}</td>
 					</tr>
 				</tfoot>
