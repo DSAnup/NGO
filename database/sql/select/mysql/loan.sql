@@ -1,6 +1,7 @@
 SELECT			{ALIAS}.*, 
 				CONCAT({ALIAS}.LoanPrefix, '_', {ALIAS}.LoanID) AS {ENTITY}LookupCaption,
 				U.UserSignInName, 
+				U.UserPhoneMobile,
 				LS.LoanSchemeName,
 				'' AS _Other
 

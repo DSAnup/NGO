@@ -1,6 +1,7 @@
 SELECT			{ALIAS}.*, 
 				CONCAT({ALIAS}.InvestPrefix, '_', {ALIAS}.InvestID) AS {ENTITY}LookupCaption, 
 				U.UserSignInName, 
+				U.UserPhoneMobile,
 				IIS.InvestSchemeSettingsName,
 				'' AS _Other
 

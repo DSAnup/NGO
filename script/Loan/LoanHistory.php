@@ -8,6 +8,7 @@ $WhereClause = implode(" AND ", array_filter([
 	"TRUE",
 	SetVariable("Keyword") ? "(
 			U.UserSignInName LIKE '%{$_POST["Keyword"]}%'
+			OR U.UserPhoneMobile LIKE '%{$_POST["Keyword"]}%'
 			OR L.LoanID LIKE '%{$_POST["Keyword"]}%'
 	)" : null,
 ]));
@@ -47,6 +48,7 @@ $RecoredSet = $Database->Query("
 											LP.LASTPAYDAY,  
 											LP.LASTPAYCOUNT,
 											U.UserSignInName AS Customer,
+											U.UserPhoneMobile,
 											LS.LoanSchemePayPerInstallment AS PerInstallment,
 											LS.LoanSchemeTotalInstallment,
 											(LS.LoanSchemeTotalInstallment - LP.LASTPAYCOUNT) AS REMAININSTALLMENT
@@ -71,15 +73,16 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	$Application->URL($_POST['_Script'], "Keyword=" . SetVariable("Keyword") . "". "&LoanID=" . SetVariable("Keyword2") . ""),
 	$RecoredSet[0][0]["TerminalCount"],
 	[
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanIdentity", "Loan Number", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "Customer", "Client", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanDate", "Loan Creation", FIELD_TYPE_SHORTDATE, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "NEXTPAYDAY", "Next Payment", FIELD_TYPE_SHORTDATE, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanIdentity", "Identity", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "Customer", "Borrower", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "UserPhoneMobile", "Mobile", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanDate", "Create", FIELD_TYPE_SHORTDATE, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LASTPAYDAY", "Last Payment", FIELD_TYPE_SHORTDATE, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Installment Amount", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanSchemeTotalInstallment", "Total Installment", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LASTPAYCOUNT", "Intstallment Given", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "REMAININSTALLMENT", "Intstallment Remain", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "NEXTPAYDAY", "Next Payment", FIELD_TYPE_SHORTDATE, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Inst. Amount", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanSchemeTotalInstallment", "Total Inst.", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LASTPAYCOUNT", "Inst. Given", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "REMAININSTALLMENT", "Inst. Remain", null, null),
 	],
 	"History",
 	$_POST["RecordCountPerPage"],

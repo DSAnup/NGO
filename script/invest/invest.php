@@ -61,6 +61,7 @@ $EM->DefaultFromSearchColumn("xTerminalID, xUserID, xCarrierID");
 
 $EM->ListColumn([
     new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "SignInName", "Investor", null, null),
+	new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "PhoneMobile", "Mobile", null, null),
     new HTML\UI\Datagrid\Column("" . ($Caption = "InvestSchemeSettings") . "Name", "Scheme Name", null, null),
     new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "Date") . "", "{$Caption}", FIELD_TYPE_SHORTDATE, null),
 	new HTML\UI\Datagrid\Column("{$Entity}Is" . ($Caption = "Active") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON),
@@ -202,6 +203,7 @@ $EM->SearchSQL([
 	// 	)" : null,
 
 	SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "UserID") . "", SetVariable($Column)) ? "{$Table["{$Entity}"]->Alias()}.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
+	SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "UserPhoneMobile") . "", SetVariable($Column)) ? "{$Table["User"]->Alias()}.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
 	SetVariable("{$Configuration["SearchInputPrefix"]}" . ($Column = "{$Entity}IsActive") . "", SetVariable($Column, "")) !== "" ? "{$Table["{$Entity}"]->Alias()}.{$Column} = " . intval($_POST["{$Configuration["SearchInputPrefix"]}{$Column}"]) . "" : null,
 	SetVariable("{$EM->SearchInputPrefix()}" . ($Column = "{$Entity}DateAssignFrom") . "", SetVariable($Column, "")) ? "{$Table["{$Entity}"]->Alias()}.{$Entity}Date >= '{$Database->Escape("{$_POST["{$EM->SearchInputPrefix()}{$Column}"]}")} {$Database->Escape("{$_POST["{$EM->SearchInputPrefix()}{$Column}Time"]}")}:00'" : null,
 	SetVariable("{$EM->SearchInputPrefix()}" . ($Column = "{$Entity}DateAssignTo") . "", SetVariable($Column, "")) ? "{$Table["{$Entity}"]->Alias()}.{$Entity}Date <= '{$Database->Escape($_POST["{$EM->SearchInputPrefix()}{$Column}"])} 23:59:59'" : null,
@@ -212,6 +214,7 @@ $EM->SearchSQL([
 
 $EM->SearchUIHTML([
 	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $InvestUser , new Option(), "{$Caption}LookupCaption", null, null, null), "Investor", null, null),
+	HTML\UI\Field(HTML\UI\Input("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "PhoneMobile", null, null, null, null), "Mobile", null, true),
 	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}{$Entity}Is" . ($Caption = "Active") . "", [new Option(), new Option(0, "No"), new Option(1, "Yes")]), "{$Caption}", null, true),
 	HTML\UI\Field(
 		HTML\UI\Input("{$EM->SearchInputPrefix()}{$Entity}Date" . ($Caption = "Assign") . "From", null, null, null, INPUT_TYPE_DATE) .
