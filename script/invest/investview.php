@@ -23,6 +23,7 @@ $RecoredSet = $Database->Query("
 								SELECT 			IT.InvestTransactionPayableDate,
 												IT.InvestTransactionIsPaid,
 												IT.InvestTransactionPaidDate,
+												IF(IT.InvestTransactionIsPaid = 1, IT.InvestTransactionPaidDate, '') AS PaidDate,
 												IT.InvestTransactionID
 								FROM			ims_investtransaction AS IT
 									LEFT JOIN 	ims_invest AS I ON I.InvestID = IT.InvestID
@@ -96,7 +97,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	$RecoredSet[0][0]["TerminalCount"],
 	[
 		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "PayableDate") . "", "Next Pay Day", FIELD_TYPE_SHORTDATE, null),
-		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "PaidDate") . "", "Paid Date", FIELD_TYPE_SHORTDATE, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "PaidDate") . "", "Paid Date", FIELD_TYPE_SHORTDATE, null),
 		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "IsPaid") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON, null),
 	],
 	"View",

@@ -34,6 +34,11 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 	$MasterAccess  ? new HTML\UI\Accordion\Pad([
 		new HTML\UI\Accordion\Item($Caption = "Lend Report", null, $Application->URL("Management/Report/LoanReport"), null, null, "" . strtolower("" . ($PadKey = "LoanReport") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 		new HTML\UI\Accordion\Item($Caption = "Invest Report", null, $Application->URL("Management/Report/InvestReport"), null, null, "" . strtolower("" . ($PadKey = "InvestReport") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+	], "" . ($Caption = "Quick Access") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
+
+	$MasterAccess  ? new HTML\UI\Accordion\Pad([
+		new HTML\UI\Accordion\Item($Caption = "Lend Report", null, $Application->URL("Management/Report/LoanReport"), null, null, "" . strtolower("" . ($PadKey = "LoanReport") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Invest Report", null, $Application->URL("Management/Report/InvestReport"), null, null, "" . strtolower("" . ($PadKey = "InvestReport") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "Report") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 
 	$MasterAccess ? new HTML\UI\Accordion\Pad([
