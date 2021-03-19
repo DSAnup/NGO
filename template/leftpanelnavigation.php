@@ -32,8 +32,8 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 	], "" . ($Caption = "Invest") . " Section", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 
 	$MasterAccess  ? new HTML\UI\Accordion\Pad([
-		new HTML\UI\Accordion\Item($Caption = "Lend Report", null, $Application->URL("Management/Report/LoanReport"), null, null, "" . strtolower("" . ($PadKey = "LoanReport") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
-		new HTML\UI\Accordion\Item($Caption = "Invest Report", null, $Application->URL("Management/Report/InvestReport"), null, null, "" . strtolower("" . ($PadKey = "InvestReport") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Unpaid Lend", null, $Application->URL("Management/Report/UnpaidLend"), null, null, "" . strtolower("" . ($PadKey = "UnpaidLend") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
+		new HTML\UI\Accordion\Item($Caption = "Unpaid Invest", null, $Application->URL("Management/Report/UnpaidInvest"), null, null, "" . strtolower("" . ($PadKey = "UnpaidInvest") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "Quick Access") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 
 	$MasterAccess  ? new HTML\UI\Accordion\Pad([
