@@ -1,3 +1,14 @@
 .Container_3Column {width: calc((100%) / 3);}
 .Container_3Column .Subtitle {font-weight: bolder; font-size: 18px;}
 .Content_Height247 {text-align: center;}
+
+@media screen and (max-width: 11cm){ /* Phone */
+	.Welcome{width: 98%;}
+
+	.ContainerRow{margin-bottom: 0;}
+	.Container{float: none; margin-bottom: 15px; padding: 5px;}
+	.Container:not(:first-child){margin-left: auto;}
+	.Container_2Column{width: auto;}
+	.Container_3Column{width: auto;}
+	.Container_6Column{width: auto;}
+}
