@@ -121,7 +121,7 @@ if(isset($Recordset[0])){
 				</tbody>
 				<tfoot>
 					<tr>
-						<td class=\"Alignleft\" colspan=\"7\">Total</td>
+						<td class=\"Alignleft\" colspan=\"7\">Total : </td>
 						<td class=\"AlignCenter\">{$TotalAmount[0][0]['TOTALAMOUNT']}</td>
 					</tr>
 				</tfoot>

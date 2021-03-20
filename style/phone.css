@@ -72,3 +72,6 @@ form > .Content > .FieldSeparator{display: none;}
 .ReportTable > tbody > tr > td > .FieldCaption{display: inline-block; margin-left: -30px;}
 
 .ReportTable > thead > tr > th{display: none;}
+.ReportTable > tfoot {float: right;}
+
+
