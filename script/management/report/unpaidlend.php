@@ -11,13 +11,13 @@ print "
 		"
 
 			" . HTML\UI\Field(
-				HTML\UI\Input("LoanTransactionPayableDate" . ($Caption = "") . "From", $Configuration["InputDateWidth"], date("Y-m-d" , strtotime('-15 days')), null, INPUT_TYPE_DATE) .
+				HTML\UI\Input("LoanTransactionPayableDate" . ($Caption = "") . "From", $Configuration["InputDateWidth"], date("Y-m-01"), null, INPUT_TYPE_DATE) .
 				HTML\UI\Input("LoanTransactionPayableDatetime" . ($Caption = "") . "From", $Configuration["InputTimeWidth"], "00:00", null, INPUT_TYPE_TIME),
 				"{$Caption}From", null, true
 			) . "
 
 			" . HTML\UI\Field(
-				HTML\UI\Input("LoanTransactionPayableDate" . ($Caption = "") . "To", $Configuration["InputDateWidth"], date("Y-m-d" , strtotime('+15 days')), null, INPUT_TYPE_DATE) .
+				HTML\UI\Input("LoanTransactionPayableDate" . ($Caption = "") . "To", $Configuration["InputDateWidth"], date("Y-m-t"), null, INPUT_TYPE_DATE) .
 				HTML\UI\Input("LoanTransactionPayableDatetime" . ($Caption = "") . "To", $Configuration["InputTimeWidth"], "23:59", null, INPUT_TYPE_TIME),
 				"{$Caption}To", null, true
 			) . "

@@ -8,13 +8,13 @@ print "
 		"
 
 			" . HTML\UI\Field(
-				HTML\UI\Input("InvestTransactionPayableDate" . ($Caption = "") . "From", $Configuration["InputDateWidth"], date("Y-m-d" , strtotime('-30 days')), null, INPUT_TYPE_DATE) .
+				HTML\UI\Input("InvestTransactionPayableDate" . ($Caption = "") . "From", $Configuration["InputDateWidth"], date("Y-m-01"), null, INPUT_TYPE_DATE) .
 				HTML\UI\Input("InvestTransactionPayableDatetime" . ($Caption = "") . "From", $Configuration["InputTimeWidth"], "00:00", null, INPUT_TYPE_TIME),
 				"{$Caption}From", null, true
 			) . "
 
 			" . HTML\UI\Field(
-				HTML\UI\Input("InvestTransactionPayableDate" . ($Caption = "") . "To", $Configuration["InputDateWidth"], date("Y-m-d"), null, INPUT_TYPE_DATE) .
+				HTML\UI\Input("InvestTransactionPayableDate" . ($Caption = "") . "To", $Configuration["InputDateWidth"], date("Y-m-t"), null, INPUT_TYPE_DATE) .
 				HTML\UI\Input("InvestTransactionPayableDatetime" . ($Caption = "") . "To", $Configuration["InputTimeWidth"], "23:59", null, INPUT_TYPE_TIME),
 				"{$Caption}To", null, true
 			) . "
