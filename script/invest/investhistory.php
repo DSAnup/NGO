@@ -52,10 +52,10 @@ $RecoredSet = $Database->Query("
 											ISS.InvestSchemeSettingsPayPerInstallment AS PerInstallment,
 											ISS.InvestSchemeSettingsTotalInstallment,
 											(ISS.InvestSchemeSettingsTotalInstallment - LP.LASTPAYCOUNT) AS REMAININSTALLMENT
-							FROM 			ims_Invest AS I
+							FROM 			ims_invest AS I
 								LEFT JOIN	next_payday_invest AS T ON T.InvestID = I.InvestID
 								LEFT JOIN	last_payday_invest AS LP ON LP.InvestID = I.InvestID
-								LEFT JOIN	ims_Investschemesettings AS ISS ON I.InvestSchemeSettingsID = ISS.InvestSchemeSettingsID
+								LEFT JOIN	ims_investschemesettings AS ISS ON I.InvestSchemeSettingsID = ISS.InvestSchemeSettingsID
 								LEFT JOIN	sphp_user AS U ON U.UserID = I.UserID
 							WHERE			{$WhereClause}
 							LIMIT			" . ((SetVariable("Page", 1) - 1) * SetVariable("RecordCountPerPage", 20)) . ", {$_POST["RecordCountPerPage"]}		

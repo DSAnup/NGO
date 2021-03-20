@@ -52,10 +52,10 @@ $Recordset = $Database->Query($SQL = "
                         CONCAT(I.LoanPrefix, '_', I.LoanID) AS LoanIdentity,
                         ISS.LoanSchemePayPerInstallment AS PerInstallment
 
-		FROM			ims_Loantransaction AS IT
-            LEFT JOIN	ims_Loan AS I ON I.LoanID = IT.LoanID
+		FROM			ims_loantransaction AS IT
+            LEFT JOIN	ims_loan AS I ON I.LoanID = IT.LoanID
             LEFT JOIN	sphp_user AS U ON U.UserID = I.UserID
-			LEFT JOIN	ims_Loanscheme AS ISS ON ISS.LoanSchemeID = I.LoanSchemeID
+			LEFT JOIN	ims_loanscheme AS ISS ON ISS.LoanSchemeID = I.LoanSchemeID
 		WHERE			{$WhereClause}
 		ORDER BY		IT.LoanTransactionPayableDate ASC
 ");
@@ -68,9 +68,9 @@ if(isset($Recordset[0])){
 
 	$TotalAmount = $Database->Query($SQL = "
 			SELECT			SUM(ISS.LoanSchemePayPerInstallment) AS TOTALAMOUNT
-			FROM			ims_Loantransaction AS IT
-				LEFT JOIN	ims_Loan AS I ON I.LoanID = IT.LoanID
-				LEFT JOIN	ims_Loanscheme AS ISS ON ISS.LoanSchemeID = I.LoanSchemeID
+			FROM			ims_loantransaction AS IT
+				LEFT JOIN	ims_loan AS I ON I.LoanID = IT.LoanID
+				LEFT JOIN	ims_loanscheme AS ISS ON ISS.LoanSchemeID = I.LoanSchemeID
 			WHERE			{$WhereClause};
 	");
 

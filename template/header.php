@@ -29,7 +29,7 @@ else{
 <header id="PageLocationTop">
 	<section class="Fixed">
 		<a href="<?=$Environment->URL()?>" class="Logo">
-			<img src="<?="{$Environment->ImageURL()}{$_SERVER["SERVER_NAME"]}/"?>logo.png" alt="Logo">
+			<img src="<?="{$Environment->ImageURL()}"?>localhost/logo.png" alt="Logo">
 			<span class="Caption"><?=$Application->Name()?></span>
 		</a>
 
