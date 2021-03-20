@@ -48,7 +48,8 @@ form > .Content > .FieldSeparator{display: none;}
 .Datagrid > .Content > .Grid > thead > .Column > .Serial{display: none;}
 .Datagrid > .Content > .Grid > tbody > tr{display: block; position: relative; border-bottom: 1px Black solid;}
 .Datagrid > .Content > .Grid > tbody > tr > td{display: block; padding: 5px; padding-left: 30px;}
-.Datagrid > .Content > .Grid > tbody > tr > td > .FieldCaption{display: inline-block; margin-left: -30px;}
+.Datagrid > .Content > .Grid > tbody > tr > td > .FieldCaption{display: inline-block; margin-left: -30px; font-weight: bold; margin-right: 5px;}
+.Datagrid > .Content > .Grid > tbody > tr > td > .FieldCaption::after{content: ' : ';}
 .Datagrid > .Content > .Grid > tbody > tr > .Serial{padding-left: 0; font-size: 150%; font-weight: bold; text-align: left;}
 .Datagrid > .Content > .Grid > tbody > tr > .Serial:before{content: '#';}
 .Datagrid > .Content > .Grid > tbody > tr > .Serial > label > input{margin-top: 9px;}
@@ -69,3 +70,5 @@ form > .Content > .FieldSeparator{display: none;}
 .ReportTable > tbody > tr > td:first-child:before{content: '#';}
 .ReportTable > tbody > tr > td:empty{display: none;}
 .ReportTable > tbody > tr > td > .FieldCaption{display: inline-block; margin-left: -30px;}
+
+.ReportTable > thead > tr > th{display: none;}
