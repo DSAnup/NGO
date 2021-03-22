@@ -135,8 +135,8 @@ if(isset($_POST["btnInput"])){
 																L.InvestDate,
 																LS.InvestSchemeSettingsTotalInstallment
 
-												FROM			ims_Invest AS L
-													LEFT JOIN	ims_InvestSchemeSettings AS LS ON LS.InvestSchemeSettingsID = L.InvestSchemeSettingsID 
+												FROM			ims_invest AS L
+													LEFT JOIN	ims_investschemesettings AS LS ON LS.InvestSchemeSettingsID = L.InvestSchemeSettingsID 
 												ORDER BY		L.InvestID DESC
 												LIMIT			1
 			")[0][0];

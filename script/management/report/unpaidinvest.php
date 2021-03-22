@@ -1,7 +1,7 @@
 <?php
 namespace sPHP;
 
-$Entity = "Invest";
+$Entity = "InvestTransaction";
 
 print "
 	<h1>Search Unpaid Invest</h1>
@@ -55,6 +55,7 @@ $RecoredSet = $Database->Query("
 							WHERE			{$WhereClause};
 
 							SELECT 			LT.InvestID,
+											LT.InvestTransactionID,
 											LT.InvestTransactionPayableDate AS PayDate,
 											U.UserSignInName,
 											U.UserPhoneMobile,
@@ -85,19 +86,19 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	$Application->URL($_POST['_Script'], "Keyword=" . SetVariable("Keyword") . ""),
 	$RecoredSet[0][0]["PaidCount"],
 	[
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "InvestIdentity", "Invest Number", null, null),
+		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "ID") . "", "Tr. Number", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "UserSignInName", "Investor", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "UserPhoneMobile", "Mobile", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "InvestDate", "Invest Creation", FIELD_TYPE_SHORTDATE, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "InvestIdentity", "Identity", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PayDate", "Payable Date", FIELD_TYPE_SHORTDATE, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Installment Amount", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Amount", null, null),
 	],
 	"Unpaid List",
 	$_POST["RecordCountPerPage"],
 	"{$Entity}ID",
 	
 	[
-		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Invest/InvestView", "btnSubmit"), "_blank", null, null, "View", null, null),
+		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Invest/InvestTransaction", "btnInput"), "_blank", null, null, "View", null, null),
 	]
 	,
 	null,
