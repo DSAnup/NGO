@@ -1,7 +1,7 @@
 <?php
 namespace sPHP;
 
-$Entity = "Loan";
+$Entity = "LoanTransaction";
 
 print "
 	<h1>Search Unpaid Loan</h1>
@@ -55,6 +55,7 @@ $RecoredSet = $Database->Query("
 							WHERE			{$WhereClause};
 
 							SELECT 			LT.LoanID,
+											LT.LoanTransactionID,
 											LT.LoanTransactionPayableDate AS PayDate,
 											U.UserSignInName,
 											U.UserPhoneMobile,
@@ -85,19 +86,19 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	$Application->URL($_POST['_Script'], "Keyword=" . SetVariable("Keyword") . ""),
 	$RecoredSet[0][0]["PaidCount"],
 	[
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanIdentity", "Loan Number", null, null),
+		new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "ID") . "", "Tr. Number", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "UserSignInName", "Borrower", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "UserPhoneMobile", "Mobile", null, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanDate", "Loan Creation", FIELD_TYPE_SHORTDATE, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "LoanIdentity", "Identity", null, null),
 		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PayDate", "Payable Date", FIELD_TYPE_SHORTDATE, null),
-		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Installment Amount", null, null),
+		new HTML\UI\Datagrid\Column("" . ($Caption = "") . "PerInstallment", "Amount", null, null),
 	],
 	"Unpaid List",
 	$_POST["RecordCountPerPage"],
 	"{$Entity}ID",
 	
 	[
-		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Loan/LoanView", "btnSubmit"), "_blank", null, null, "View", null, null),
+		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Loan/LoanTransaction", "btnInput"), null, null, null, "View", null, null),
 	]
 	,
 	null,

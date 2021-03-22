@@ -16,7 +16,7 @@ $EM->ImportField([
 
 $EM->InputValidation([
     new HTTP\InputValidation("LoanID", null, VALIDATION_TYPE_INTEGER),
-	new HTTP\InputValidation("{$Entity}PayableDate", true, null),
+	new HTTP\InputValidation("{$Entity}PaidDate", true, null),
 	new HTTP\InputValidation("{$Entity}IsActive", null, VALIDATION_TYPE_INTEGER),
 ]);
 
@@ -111,8 +111,9 @@ if(isset($_POST["btnInput"])){
 
 	if(isset($_POST["btnSubmit"])){
 		#region Custom code
+		$_POST["{$Entity}PaidDate"] = "{$_POST["{$Entity}PaidDateDate"]} {$_POST["{$Entity}PaidDateTime"]}:00";
 		#endregion Custom code
-		DebugDump($_POST);
+		// DebugDump($_POST);
 		if($EM->Input()){
 
 			$Terminal->Redirect("{$_POST["_Referer"]}&SucceededAction=Input"); // Redirect to previous location
@@ -122,11 +123,17 @@ if(isset($_POST["btnInput"])){
 	$EM->LoadExistingData();
 	#region Custom code
 
+	if(isset($_POST["{$Entity}PaidDate"]) && $_POST["{$Entity}PaidDate"]){
+		$PaidDate = strtotime($_POST["{$Entity}PaidDate"]);
+		$_POST["{$Entity}PaidDateDate"] = date("Y-m-d", $PaidDate);
+		$_POST["{$Entity}PaidDateTime"] = date("H:i", $PaidDate);
+	}
+
 	#endregion Custom code
 
 	$EM->InputUIHTML([
-		HTML\UI\Field(HTML\UI\Input("{$Entity}PayableDate" . ($Caption = "") . "", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}Date" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "Date", true, null, $EM->FieldCaptionWidth()),
-		HTML\UI\Field(HTML\UI\RadioGroup("{$Entity}Is" . ($Caption = "Active") . "", [new HTML\UI\Radio(1, "Yes"), new HTML\UI\Radio(0, "No")]), "{$Caption}", true, null, $EM->FieldCaptionWidth()),
+		HTML\UI\Field(HTML\UI\Input("{$Entity}PaidDate" . ($Caption = "") . "Date", $EM->InputDateWidth(), date("Y-m-d"), null, INPUT_TYPE_DATE) . HTML\UI\Input("{$Entity}PaidDate" . ($Caption = "") . "Time", $Configuration["InputTimeWidth"], date("H:i"), null, INPUT_TYPE_TIME), "PaidDate", true, null, $EM->FieldCaptionWidth()),
+		HTML\UI\Field(HTML\UI\RadioGroup("{$Entity}Is" . ($Caption = "Paid") . "", [new HTML\UI\Radio(1, "Yes"), new HTML\UI\Radio(0, "No")]), "{$Caption}", true, null, $EM->FieldCaptionWidth()),
 	]);
 
 	print $EM->InputHTML();
@@ -189,7 +196,7 @@ if(isset($_POST["btnExport"])){
 	$Terminal->LetDownload($CSVRow, null, "Daily Task" . date("Y-m-d H-i-s") . " " . rand(0, 9999) . ".csv"); 
 }
 
-print "{$EM->ListHTML()}";
+// print "{$EM->ListHTML()}";
 if(SetVariable("SucceededAction") == "Input")print HTML\UI\Toast("{$Table["{$Entity}"]->FormalName()} input successful.");
 #region List
 ?>

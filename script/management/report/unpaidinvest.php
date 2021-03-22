@@ -98,7 +98,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	"{$Entity}ID",
 	
 	[
-		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Invest/InvestTransaction", "btnInput"), "_blank", null, null, "View", null, null),
+		new HTML\UI\Datagrid\Action("{$Environment->IconURL()}view.png", null, $Application->URL("Invest/InvestTransaction", "btnInput"), null, null, null, "View", null, null),
 	]
 	,
 	null,
