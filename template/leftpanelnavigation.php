@@ -32,6 +32,7 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 	], "" . ($Caption = "Deposit") . " Section", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 
 	$MasterAccess  ? new HTML\UI\Accordion\Pad([
+		new HTML\UI\Accordion\Item($Caption = "Bulk Updte Deposit", null, $Application->URL("Invest/BulkUpdateInvest"), null, null, "" . strtolower("" . ($PadKey = "BulkUpdateInvest") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 		new HTML\UI\Accordion\Item($Caption = "Unpaid Lend", null, $Application->URL("Management/Report/UnpaidLend"), null, null, "" . strtolower("" . ($PadKey = "UnpaidLend") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 		new HTML\UI\Accordion\Item($Caption = "Unpaid Deposit", null, $Application->URL("Management/Report/UnpaidInvest"), null, null, "" . strtolower("" . ($PadKey = "UnpaidInvest") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "Quick Access") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
