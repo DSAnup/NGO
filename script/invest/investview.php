@@ -123,7 +123,7 @@ $CreateCustomDataGrid = new HTML\UI\Datagrid(
 	"
 	,
 	"
-		<h4 class=\"AlignCenter\">Invest No : " . $RecoredSet[2][0]["InvestIdentity"] . "</h4>	
+		<h4 class=\"AlignCenter\">Deposit No : " . $RecoredSet[2][0]["InvestIdentity"] . "</h4>	
 		<h5 class=\"AlignCenter\">Name : " . $RecoredSet[2][0]["Customer"] . "</h5>
 		<h5 class=\"AlignCenter\">Date : " . $RecoredSet[2][0]["InvestDate"] . "</h5>
 		<h5 class=\"AlignCenter\">Per Installment : " . $RecoredSet[2][0]["PerInstallment"] . "</h5>
