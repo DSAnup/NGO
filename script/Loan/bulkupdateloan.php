@@ -36,7 +36,7 @@ $EM->BatchActionHTML([
 	HTML\UI\Button("<img src=\"{$Environment->IconURL()}export.png\" alt=\"Export\" class=\"Icon\">Bulk Paid", BUTTON_TYPE_SUBMIT, "btnUpdate", true),
 ]);
 
-$EM->OrderBy("{$Entity}ID");
+$EM->OrderBy("{$Entity}PayableDate");
 $EM->Order("ASC");
 $EM->URL($Application->URL($_POST["_Script"]));
 $EM->IconURL($Environment->IconURL());
