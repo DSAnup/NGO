@@ -2,11 +2,11 @@
 namespace sPHP;
 
 #region Entity management common configuration
-$EM = new EntityManagement($Table[$Entity = "InvestTransaction"]);
+$EM = new EntityManagement($Table[$Entity = "LoanTransaction"]);
 //DebugDump($Table[$Entity]->Structure());
-SetVariable("Search_InvestTransactionIsPaid", 0);
+SetVariable("Search_LoanTransactionIsPaid", 0);
 // DebugDump($_POST);
-$InvestUser = $Database->Query("
+$LoanUser = $Database->Query("
 								SELECT 			U.*,
 												@UserName := CONCAT(
 													U.UserNameFirst,
@@ -17,15 +17,15 @@ $InvestUser = $Database->Query("
 												CONCAT(@UserName, ' [', U.UserPhoneMobile, ']') AS UserLookupCaption
 								FROM 			sphp_userusergroup AS UUG
 									LEFT JOIN 	sphp_user AS U ON U.UserID = UUG.UserID
-								WHERE 			UUG.UserGroupID = 13"
+								WHERE 			UUG.UserGroupID = 12"
 							)[0];
 
 // DebugDump($User);
 
 $EM->ListColumn([
 	new HTML\UI\Datagrid\Column("" . ($Caption = "User") . "SignInName", "Customer", null, null),
-	new HTML\UI\Datagrid\Column("" . ($Caption = "Invest") . "Identity", "Identity", null, null),
-    new HTML\UI\Datagrid\Column("" . ($Caption = "InvestSchemeSettings") . "PayPerInstallment", "Amount", null, null),
+	new HTML\UI\Datagrid\Column("" . ($Caption = "Loan") . "Identity", "Identity", null, null),
+    new HTML\UI\Datagrid\Column("" . ($Caption = "LoanScheme") . "PayPerInstallment", "Amount", null, null),
     new HTML\UI\Datagrid\Column("{$Entity}" . ($Caption = "PayableDate") . "", "{$Caption}", FIELD_TYPE_SHORTDATE, null),
 	new HTML\UI\Datagrid\Column("{$Entity}Is" . ($Caption = "Paid") . "", "{$Caption}", FIELD_TYPE_BOOLEANICON),
 ]);
@@ -59,11 +59,11 @@ $EM->BaseURL($Environment->URL()); // ???????????
 
 
 if(isset($_POST["btnUpdate"])){
-	$InvestTransactionID = implode(", ", $_POST['InvestTransactionID']);
+	$LoanTransactionID = implode(", ", $_POST['LoanTransactionID']);
 	$Database->Query("
-					UPDATE			ims_investtransaction
-					SET				InvestTransactionPaidDate = CURRENT_TIMESTAMP(), InvestTransactionIsPaid = 1
-					WHERE			InvestTransactionID IN ({$InvestTransactionID})
+					UPDATE			ims_loantransaction
+					SET				LoanTransactionPaidDate = CURRENT_TIMESTAMP(), LoanTransactionIsPaid = 1
+					WHERE			LoanTransactionID IN ({$LoanTransactionID})
 	");
 	$Terminal->Redirect($_SERVER["HTTP_REFERER"]);
 }
@@ -84,7 +84,7 @@ $EM->SearchSQL([
 ]);
 
 $EM->SearchUIHTML([
-	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $InvestUser , new Option(), "{$Caption}LookupCaption", null, null, null), "Investor", null, null),
+	HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}" . ($Caption = "User") . "ID", $LoanUser , new Option(), "{$Caption}LookupCaption", null, null, null), "Lender", null, null),
 	// HTML\UI\Field(HTML\UI\Select("{$Configuration["SearchInputPrefix"]}{$Entity}Is" . ($Caption = "Paid") . "", [new Option(0, "No"), new Option(1, "Yes")]), "{$Caption}", null, true),
 	HTML\UI\Field(
 		HTML\UI\Input("{$EM->SearchInputPrefix()}{$Entity}Date" . ($Caption = "Assign") . "From", null, null, null, INPUT_TYPE_DATE) .
