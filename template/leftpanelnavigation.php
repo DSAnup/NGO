@@ -9,6 +9,14 @@ if(in_array($User->UserGroupIdentifierHighest(), $Master)){
 	$MasterAccess = FALSE;
 }
 
+$Client = array("INVESTOR", "BORROWER");
+$ClientAccess = FALSE;
+if(in_array($User->UserGroupIdentifierHighest(), $Client)){
+	$ClientAccess = TRUE;
+}else{
+	$ClientAccess = FALSE;
+}
+
 $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 	$Session->IsGuest() ? null : new HTML\UI\Accordion\Pad([
 		new HTML\UI\Accordion\Item($Caption = "Dashboard", null, $Application->URL("{$Caption}"), null, null, "" . strtolower("" . ($PadKey = "Dashboard") . "_" . ($Key = "Dashboard")) . "", "{$Caption}", null, "{$Key}"),
@@ -48,6 +56,12 @@ $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
 		new HTML\UI\Accordion\Item($Caption = "User", null, $Application->URL("Management/Generic/Customer"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "Customer")) . "", "{$Caption}", null, "{$Key}"),
 		$User->UserGroupIdentifierHighest() == "ADMINISTRATOR" ? new HTML\UI\Accordion\Item($Caption = "User group", null, $Application->URL("Management/Generic/UserGroup"), null, null, "" . strtolower("" . ($PadKey = "Administration") . "_" . ($Key = "UserGroup")) . "", "{$Caption}", null, "{$Key}"): null,
 	], "" . ($Caption = "Administration") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
+
+	$ClientAccess  ? new HTML\UI\Accordion\Pad([
+		$User->UserGroupIdentifierHighest() == "INVESTOR" ? new HTML\UI\Accordion\Item($Caption = "Deposit History", null, $Application->URL("Client/InvestHistory"), null, null, "" . strtolower("" . ($PadKey = "InvestHistory") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}") : null,
+		$User->UserGroupIdentifierHighest() == "BORROWER" ? new HTML\UI\Accordion\Item($Caption = "Loan History", null, $Application->URL("Client/loanhistory"), null, null, "" . strtolower("" . ($PadKey = "LoanHistory") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}") : null,
+	], "" . ($Caption = "Report") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
+	
 	$Session->IsGuest() ? new HTML\UI\Accordion\Pad([
 		new HTML\UI\Accordion\Item($Caption = "Log in", null, $Application->URL("User/SignIn"), null, null, "" . strtolower("" . ($PadKey = "User") . "_" . ($Key = "SignIn")) . "", "{$Caption}", null, "{$Key}"),
 	], "" . ($Caption = "") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : new HTML\UI\Accordion\Pad([
