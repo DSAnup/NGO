@@ -18,13 +18,9 @@ if(in_array($User->UserGroupIdentifierHighest(), $Client)){
 }
 
 $LeftPanelLinkHTML[] = HTML\UI\Accordion("LeftPanelNavigation", [
-	$Session->IsGuest() ? null : new HTML\UI\Accordion\Pad([
+	$MasterAccess ? new HTML\UI\Accordion\Pad([
 		new HTML\UI\Accordion\Item($Caption = "Dashboard", null, $Application->URL("{$Caption}"), null, null, "" . strtolower("" . ($PadKey = "Dashboard") . "_" . ($Key = "Dashboard")) . "", "{$Caption}", null, "{$Key}"),
-		// new HTML\UI\Accordion\Item($Caption = "Analytics &amp; summary", null, $Application->URL("Landing"), null, null, "" . strtolower("" . ($PadKey = "Landing") . "_" . ($Key = "Landing")) . "", "{$Caption}", null, "{$Key}"),
-	], "" . ($Caption = "") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}"),
-	// $Session->IsGuest() ? null : new HTML\UI\Accordion\Pad([
-	// 	new HTML\UI\Accordion\Item($Caption="Source", null, $Application->URL("Management/Generic/Source"), null, null, "" . strtolower("" . ($PadKey = "") . "" . ($Key = "Source")) . "", "{$Caption}", null, "{$Key}")
-	// ]),
+	], "" . ($Caption = "") . "", "{$Caption}", "{$Caption}", null, "{$PadKey}") : null,
 
 	$MasterAccess ? new HTML\UI\Accordion\Pad([
 		new HTML\UI\Accordion\Item($Caption = "Loan Scheme Setting", null, $Application->URL("loan/loanshceme"), null, null, "" . strtolower("" . ($PadKey = "LoanScheme") . "" . ($Key = "")) . "", "{$Caption}", null, "{$Key}"),
