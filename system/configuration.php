@@ -11,7 +11,7 @@
 	$SupportCallCenterNumber = "+8809611898989";
 	$URL = strtolower("HTTP://{$Domain}/");
 	$DatabaseUser = "root";
-	$DatabaseName = "insurance";
+	$DatabaseName = "wapssolution_ngo";
     #endregion Reusable shortcut variable
 
 	$Configuration = [

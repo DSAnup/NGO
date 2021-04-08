@@ -117,6 +117,10 @@ if(isset($_POST["btnImport"])){
 }
 
 if(isset($_POST["btnDelete"])){
+	$Database->Query("
+			DELETE FROM ims_loantransaction
+			WHERE LoanID = " . $_POST['LoanID'] . "
+	");
 	$EM->Delete();
 	$Terminal->Redirect($_SERVER["HTTP_REFERER"]);
 }
